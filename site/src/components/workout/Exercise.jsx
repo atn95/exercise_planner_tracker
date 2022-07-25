@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Exercise = ({ exercise }) => {
 	const styles = {
@@ -23,13 +23,30 @@ const Exercise = ({ exercise }) => {
 
 	let [exerciseRecord, setExerciseRecord] = useState(exercise);
 
+	useEffect(() => {
+		setExerciseRecord(exercise);
+	}, [exercise]);
+
 	const saveData = (e) => {
 		e.preventDefault();
+		//TODO: save to database
 		console.log(`saved`, exerciseRecord);
 	};
 
-	const setWeight = (e) => {
+	const setWeight = (e, index) => {
 		e.preventDefault();
+		let tempDataRecord = { ...exerciseRecord };
+		tempDataRecord[index].weight = e.target.value;
+		setExerciseRecord(tempDataRecord);
+		console.log(index);
+	};
+
+	const setReps = (e, index) => {
+		e.preventDefault();
+		let tempDataRecord = { ...exerciseRecord };
+		tempDataRecord[index].reps = e.target.value;
+		setExerciseRecord(tempDataRecord);
+		console.log(index);
 	};
 
 	return (
@@ -43,14 +60,31 @@ const Exercise = ({ exercise }) => {
 									weight:{' '}
 									<input
 										style={styles.input}
-										value={''}
+										value={
+											exerciseRecord
+												? exerciseRecord[exercise.indexOf(set)].weight
+												: ``
+										}
 										placeholder='0 lbs'
-										onChange={setWeight}
+										onChange={(e) => {
+											setWeight(e, exercise.indexOf(set));
+										}}
 										type='text'
 										name='weight'></input>
 								</div>
 								<div>
-									<input style={styles.input} type='text' name='reps'></input>
+									<input
+										style={styles.input}
+										value={
+											exerciseRecord
+												? exerciseRecord[exercise.indexOf(set)].reps
+												: ``
+										}
+										onChange={(e) => {
+											setReps(e, exercise.indexOf(set));
+										}}
+										type='text'
+										name='reps'></input>
 									{' ' + set.units}
 								</div>
 							</div>

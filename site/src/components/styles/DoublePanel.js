@@ -16,5 +16,6 @@ export let styles = {
 		border: `2px solid black`,
 		marginTop: `20px`,
 		borderRadius: `10px`,
+		paddingBottom: `15px`,
 	},
 };

@@ -14,4 +14,15 @@ code {
 
 .selected {
 	background-color: rgb(190, 190, 190);
+	width: 90%;
+	margin: 0 auto;
+}
+
+.add {
+	background-color: green;
+}
+
+.add:hover {
+	background-color: rgb(62, 208, 0);
+	transform: scale(1.02);
 }

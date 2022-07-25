@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import '../styles/workoutplans.css';
+import { Link } from 'react-router-dom';
 
 const WorkoutPlans = ({ plan, setPlan, plans }) => {
 	let styles = {
@@ -67,9 +68,15 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 					  ))
 					: ''}
 				{showPlans ? (
-					<div style={styles.plansDiv} className='plansDiv'>
-						<h2 style={{ fontWeight: 500 }}>Add Plan</h2>
-					</div>
+					<Link
+						to='/addplan'
+						style={{ textDecoration: `none`, color: `green` }}>
+						<div style={styles.plansDiv} className='plansDiv'>
+							<h2 style={{ textDecoration: `none`, fontWeight: 500 }}>
+								Add Plan
+							</h2>
+						</div>
+					</Link>
 				) : (
 					''
 				)}

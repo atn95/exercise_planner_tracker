@@ -1,3 +1,5 @@
+
+
 const ExerciseContainer = ({ exercises, selectedExercise, setExercise }) => {
 	let styles = {
 		container: {
