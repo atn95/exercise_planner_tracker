@@ -2,6 +2,7 @@
 body {
 	margin: 0;
 	font-family: 'Noto Sans', sans-serif;
+	font-weight: 300;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -9,4 +10,8 @@ body {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 		monospace;
+}
+
+.selected {
+	background-color: rgb(190, 190, 190);
 }
