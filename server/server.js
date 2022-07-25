@@ -1,5 +1,5 @@
 const express = require('express');
-// const routes = require('./routes');
+const collection = require('./controllers');
 const db = require('./db');
 const logger = require('morgan');
 const cors = require('cors');
@@ -17,3 +17,20 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 app.get('/', (req, res) => res.json(`root`));
+app.get(
+	'/getexercise',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.exercise.getAllExercise
+);
+
+app.post(
+	'/addexercise',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.exercise.addExercise
+);
