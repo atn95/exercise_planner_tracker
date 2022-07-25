@@ -28,7 +28,9 @@ const Exercise = ({ exercise }) => {
 		console.log(`saved`, exerciseRecord);
 	};
 
-	const setWeight = (e) => {};
+	const setWeight = (e) => {
+		e.preventDefault();
+	};
 
 	return (
 		<div style={styles.container}>
@@ -42,7 +44,7 @@ const Exercise = ({ exercise }) => {
 									<input
 										style={styles.input}
 										value={''}
-										placeholder='0kg'
+										placeholder='0 lbs'
 										onChange={setWeight}
 										type='text'
 										name='weight'></input>
