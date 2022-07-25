@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Header from './components/Header';
 import Workout from './components/workout/Workout';
 import Data from './components/Data';
-import AddPlanPage from './components/workout/AddPlanPage';
+import PlanManager from './components/workout/PlanManager';
 
 function App() {
 	return (
@@ -18,7 +18,7 @@ function App() {
 				<Route path='/' element={<Home />} />
 				<Route path='/workout' element={<Workout />} />
 				<Route path='/data' element={<Data />} />
-				<Route path='/addplan' element={<AddPlanPage />} />
+				<Route path='/addplan' element={<PlanManager />} />
 			</Routes>
 		</div>
 	);

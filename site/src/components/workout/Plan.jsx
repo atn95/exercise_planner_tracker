@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-const Plan = ({ plan, selectPlan, selectedPlan }) => {
+const Plan = ({
+	plan,
+	selectPlan,
+	selectedPlan,
+	dayIndex,
+	setDayIndex,
+	schedule,
+}) => {
 	const styles = {
 		plans: {
 			textAlign: `left`,
@@ -13,23 +20,6 @@ const Plan = ({ plan, selectPlan, selectedPlan }) => {
 		},
 		dates: {},
 	};
-
-	//reload Schedule upon changing plan
-	let [schedule, setSchedule] = useState({
-		schedule: [
-			{ day: `Sunday`, exercise: [] },
-			{ day: `Monday`, exercise: [] },
-			{ day: `Tuesday`, exercise: [] },
-			{ day: `Wednesday`, exercise: [] },
-			{ day: `Thursday`, exercise: [] },
-			{ day: `Friday`, exercise: [] },
-			{ day: `Saturday`, exercise: [] },
-		],
-		planId: plan.id,
-		name: plan.name,
-	});
-
-	let [dayIndex, setDayIndex] = useState(0);
 
 	const chooseDate = (index) => {
 		setDayIndex(index);
@@ -65,7 +55,7 @@ const Plan = ({ plan, selectPlan, selectedPlan }) => {
 				style={{ margin: `5px auto` }}>
 				{plan.name}
 			</h5>
-			{selectedPlan.id === schedule.planId ? showDates() : ''}
+			{plan.id === schedule.planId ? showDates() : ''}
 		</div>
 	);
 };
