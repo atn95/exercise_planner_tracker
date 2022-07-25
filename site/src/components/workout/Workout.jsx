@@ -34,8 +34,6 @@ const Workout = () => {
 		id: `231412323`,
 	});
 
-	let [exerciseRecord, setExerciseRecord] = useState([]);
-
 	//make exercise record template
 	useEffect(() => {
 		const initializeExerciseRecord = () => {
@@ -59,6 +57,8 @@ const Workout = () => {
 		console.log(`loaded`);
 		initializeExerciseRecord();
 	}, [exercises]);
+
+	let [exerciseRecord, setExerciseRecord] = useState([]);
 
 	return (
 		<div>

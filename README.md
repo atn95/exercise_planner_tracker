@@ -32,6 +32,6 @@
 
 # Task List
 
-## [Trello](https://trello.com/invite/b/uzFCM5p2/db3d7ca576a9d96bd6ac82a4cebedc9d/workout-app)
+## [Trello](https://trello.com/b/uzFCM5p2)
 
 # Credit

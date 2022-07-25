@@ -66,6 +66,13 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 							</div>
 					  ))
 					: ''}
+				{showPlans ? (
+					<div style={styles.plansDiv} className='plansDiv'>
+						<h2 style={{ fontWeight: 500 }}>Add Plan</h2>
+					</div>
+				) : (
+					''
+				)}
 			</div>
 		</div>
 	);
