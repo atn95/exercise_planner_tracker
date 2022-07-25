@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { styles } from '../styles/DoublePanel';
 import '../../index.css';
+import AddPlanPopup from './AddPlanPopup';
 
 const AddPlan = ({}) => {
 	//TODO: load plan from db
@@ -46,8 +47,26 @@ const AddPlan = ({}) => {
 		name: `Plan 1`,
 	});
 
+	let [showAddPopup, setShowPopup] = useState(false);
+
+	const openAddScreen = () => {
+		setShowPopup(true);
+	};
+	const closeAddScreen = () => {
+		setShowPopup(false);
+	};
+
+	const addPlan = (plan) => {
+		setPlans([...plans, plan]);
+	};
+
 	return (
 		<div style={styles.container}>
+			{showAddPopup ? (
+				<AddPlanPopup close={closeAddScreen} addPlan={addPlan} />
+			) : (
+				``
+			)}
 			<div style={styles.leftPanel}>
 				<h3 style={componentStyles.label}>Current Plan: </h3>
 				{plans.map((plan) => (
@@ -60,6 +79,7 @@ const AddPlan = ({}) => {
 					</div>
 				))}
 				<div
+					onClick={openAddScreen}
 					className='add'
 					style={{
 						...componentStyles.plans,

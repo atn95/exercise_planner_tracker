@@ -26,3 +26,10 @@ code {
 	background-color: rgb(62, 208, 0);
 	transform: scale(1.02);
 }
+
+.close {
+	background-color: rgb(245, 56, 56);
+}
+.close:hover {
+	background-color: rgb(255, 0, 0);
+}
