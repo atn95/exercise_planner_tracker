@@ -1,0 +1,4 @@
+.plansDiv:hover {
+	background-color: rgb(190, 190, 190);
+	outline: 1px solid black;
+}
