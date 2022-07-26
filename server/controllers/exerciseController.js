@@ -20,4 +20,28 @@ const addExercise = async (req, res) => {
 	}
 };
 
-module.exports = { getAllExercise, addExercise };
+const searchExercise = async (req, res) => {
+	let { term } = req.params;
+	let searchTerms = String(term).split(` `);
+
+	let foundExercise = [];
+	let keyTracker = {};
+	try {
+		for (let i = 0; i < searchTerms.length; i++) {
+			let found = await Exercise.find({ name: { $regex: searchTerms[i], $options: 'i' } });
+			found.forEach((ex) => {
+				if (!keyTracker[String(ex._id)]) {
+					foundExercise.push(ex);
+					keyTracker[String(ex._id)] = true;
+				}
+			});
+		}
+		console.log(foundExercise);
+		res.json(searchTerms);
+	} catch (error) {
+		console.log(error);
+		res.send({ message: `error` });
+	}
+};
+
+module.exports = { getAllExercise, addExercise, searchExercise };

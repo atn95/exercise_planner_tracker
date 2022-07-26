@@ -35,3 +35,12 @@ app.post(
 	},
 	collection.exercise.addExercise
 );
+
+app.get(
+	'/search/:term',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.exercise.searchExercise
+);
