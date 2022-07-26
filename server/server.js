@@ -18,6 +18,8 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 app.get('/', (req, res) => res.json(`root`));
 
+//=============get===================
+
 app.get(
 	'/getexercise',
 	(req, res, next) => {
@@ -25,15 +27,6 @@ app.get(
 		next();
 	},
 	collection.exercise.getAllExercise
-);
-
-app.post(
-	'/addexercise',
-	(req, res, next) => {
-		//check auth
-		next();
-	},
-	collection.exercise.addExercise
 );
 
 app.get(
@@ -45,6 +38,34 @@ app.get(
 	collection.exercise.searchExercise
 );
 
+app.get(
+	'/plan/id',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.plan.getExercisePlanByID
+);
+
+app.get(
+	'/plan',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.plan.getExercisePlanFromUser
+);
+
+//=================post====================
+app.post(
+	'/addexercise',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.exercise.addExercise
+);
+
 app.post(
 	'/create/plan',
 	(req, res, next) => {
@@ -54,11 +75,11 @@ app.post(
 	collection.plan.createExercisePlan
 );
 
-app.get(
-	'/plan',
+app.post(
+	'/updateplan',
 	(req, res, next) => {
 		//check auth
 		next();
 	},
-	collection.plan.getExercisePlanFrom
+	collection.plan.updatePlan
 );

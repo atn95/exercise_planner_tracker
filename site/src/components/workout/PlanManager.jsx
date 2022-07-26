@@ -4,6 +4,7 @@ import '../../index.css';
 import AddPlanPopup from './AddPlanPopup';
 import Plan from './Plan';
 import DaySchedule from './DaySchedule';
+import axios from 'axios';
 
 const PlanManager = () => {
 	//TODO: load plan from db
@@ -27,14 +28,16 @@ const PlanManager = () => {
 
 	useEffect(() => {
 		//load plans
+		const getPlansByUser = async () => {
+			let plans = await axios.get(`http://127.0.0.1:3001/plan`, { params: { userId: 'Test21234' } });
+			setPlans(plans.data);
+		};
+		getPlansByUser();
 	}, []);
 
-	let [selectedPlan, setSelectedPlan] = useState({
-		name: `Plan 1`,
-		id: `1234123`,
-	});
-
+	let [selectedPlan, setSelectedPlan] = useState(null);
 	let [showAddPopup, setShowPopup] = useState(false);
+	let [save, setSave] = useState(false);
 
 	const openAddScreen = () => {
 		setShowPopup(true);
@@ -50,39 +53,30 @@ const PlanManager = () => {
 	};
 
 	//reload Schedule upon changing plan
-	let [schedule, setSchedule] = useState({
-		schedule: [
-			{
-				day: `Sunday`,
-				exercise: [
-					{ name: `Bench`, sets: 4, reps: 8, unit: 'lbs' },
-					{ name: `Bicep`, sets: 4, reps: 8, unit: 'lbs' },
-				],
-			},
-			{ day: `Monday`, exercise: [] },
-			{ day: `Tuesday`, exercise: [] },
-			{ day: `Wednesday`, exercise: [] },
-			{ day: `Thursday`, exercise: [] },
-			{ day: `Friday`, exercise: [] },
-			{ day: `Saturday`, exercise: [] },
-		],
-		planId: selectedPlan.id,
-		name: selectedPlan.name,
-		_id: `12412334122341`,
-	});
+	let [schedule, setSchedule] = useState(null);
+	useEffect(() => {
+		const getSchedule = async () => {
+			if (selectedPlan) {
+				let schedule = await axios.get(`http://127.0.0.1:3001/plan/id`, { params: { planId: selectedPlan._id } });
+				setSchedule(schedule.data[0]);
+			}
+		};
+		getSchedule();
+	}, [selectedPlan]);
 
-	useEffect(() => {}, [selectedPlan]);
+	useEffect(() => {
+		const saveSchedule = async () => {
+			if (save) {
+				let response = await axios.post('http://127.0.0.1:3001/updateplan', schedule);
+				console.log(response.data);
+				setSave(false);
+			}
+		};
+		saveSchedule();
+	}, [save]);
 
 	const selectPlan = (plan) => {
 		setSelectedPlan(plan);
-		//TOD): pullSchedule
-		setSchedule({
-			...schedule,
-			planId: plan.id,
-			name: plan.name,
-		});
-
-		console.log(schedule);
 	};
 
 	const addExercise = (exercise) => {
@@ -97,6 +91,10 @@ const PlanManager = () => {
 		setSchedule(tempSched);
 	};
 
+	const savePlan = async () => {
+		setSave(true);
+	};
+
 	return (
 		<div style={styles.container}>
 			{showAddPopup ? <AddPlanPopup close={closeAddScreen} addPlan={addPlan} /> : ``}
@@ -106,10 +104,12 @@ const PlanManager = () => {
 					<Plan schedule={schedule} dayIndex={dayIndex} setDayIndex={setDayIndex} plan={plan} selectPlan={selectPlan} selectedPlan={selectedPlan} />
 				))}
 				<div
+					className='save'
 					style={{
 						...componentStyles.plans,
 						marginTop: `20px`,
-					}}>
+					}}
+					onClick={savePlan}>
 					<h5 style={componentStyles.btnStyle}>Save</h5>
 				</div>
 				<div
@@ -122,9 +122,7 @@ const PlanManager = () => {
 					<h5 style={componentStyles.btnStyle}>Add</h5>
 				</div>
 			</div>
-			<div style={styles.rightPanel}>
-				<DaySchedule removeExercise={removeExercise} addExercise={addExercise} day={schedule.schedule[dayIndex]} />
-			</div>
+			<div style={styles.rightPanel}>{schedule ? <DaySchedule removeExercise={removeExercise} addExercise={addExercise} day={schedule.schedule[dayIndex]} /> : ``}</div>
 		</div>
 	);
 };

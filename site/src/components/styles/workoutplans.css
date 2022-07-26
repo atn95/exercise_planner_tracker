@@ -22,3 +22,7 @@
 	min-height: 200px;
 	overflow: scroll;
 }
+
+.save:hover {
+	background-color: rgb(190, 190, 190);
+}

@@ -23,16 +23,35 @@ const createExercisePlan = async (req, res) => {
 	}
 };
 
-const getExercisePlanFrom = async (req, res) => {
+const getExercisePlanFromUser = async (req, res) => {
 	try {
-		let exPlan = await ExercisePlan.find({ userId: req.body.userId });
-		res.send(exPlan);
+		let exPlan = await ExercisePlan.find({ userId: req.query.userId }, { schedule: 0 });
+		res.json(exPlan);
 	} catch (error) {
 		console.log(error);
 	}
 };
 
+const getExercisePlanByID = async (req, res) => {
+	try {
+		let exPlan = await ExercisePlan.find({ _id: req.query.planId });
+		console.log(exPlan);
+		res.json(exPlan);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const updatePlan = async (req, res) => {
+	try {
+		let plan = await ExercisePlan.findByIdAndUpdate(req.body._id, req.body);
+		res.json({ ...req.body, message: 'saved' });
+	} catch (error) {}
+};
+
 module.exports = {
 	createExercisePlan,
-	getExercisePlanFrom,
+	getExercisePlanFromUser,
+	getExercisePlanByID,
+	updatePlan,
 };
