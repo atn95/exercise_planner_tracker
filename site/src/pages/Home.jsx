@@ -1,4 +1,4 @@
-import { styles } from './styles/DoublePanel';
+import { styles } from '../components/styles/DoublePanel';
 
 const Home = () => {
 	return (

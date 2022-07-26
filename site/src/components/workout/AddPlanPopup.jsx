@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AddPlanPopup = ({ close, addPlan }) => {
 	const styles = {
@@ -43,19 +44,30 @@ const AddPlanPopup = ({ close, addPlan }) => {
 	};
 
 	let [planName, setPlanName] = useState('');
+	let [save, setSave] = useState(false);
 
 	const savePlan = (e) => {
 		e.preventDefault();
 		//addPlanToDatabase
-
-		addPlan({ name: planName, id: `2312435` });
-		close();
+		setSave(true);
 	};
+
+	useEffect(() => {
+		const saveToDB = async () => {
+			if (save) {
+				let response = await axios.post('http://127.0.0.1:3001/create/plan', { name: planName });
+				console.log(response.data);
+				setSave(false);
+				addPlan({ name: response.data.name, _id: response.data._id, userId: response.data.userId });
+				close();
+			}
+		};
+		saveToDB();
+	}, [save]);
 
 	const handleTitleInput = (e) => {
 		e.preventDefault();
 		setPlanName(e.target.value);
-		console.log(planName);
 	};
 
 	return (
@@ -71,12 +83,7 @@ const AddPlanPopup = ({ close, addPlan }) => {
 			<div>
 				<form onSubmit={savePlan} style={styles.formStyle}>
 					<label htmlFor='Plan Name'>Plan Name:</label>
-					<input
-						onChange={handleTitleInput}
-						style={styles.formItem}
-						type='text'
-						name='planname'
-					/>
+					<input onChange={handleTitleInput} style={styles.formItem} type='text' name='planname' />
 					<button style={styles.formItem} type='submit'>
 						Save
 					</button>

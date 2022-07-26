@@ -1,9 +1,8 @@
-import { styles } from '../styles/DoublePanel';
-import WorkoutPlans from './WorkoutPlans';
-import ExerciseContainer from './ExerciseContainer';
-import Exercise from './Exercise';
+import { styles } from '../components/styles/DoublePanel';
+import WorkoutPlans from '../components/workout/WorkoutPlans';
+import ExerciseContainer from '../components/workout/ExerciseContainer';
+import Exercise from '../components/workout/Exercise';
 import { useState, useEffect } from 'react';
-import AddExercise from './AddExercise';
 
 const Workout = () => {
 	const label = {

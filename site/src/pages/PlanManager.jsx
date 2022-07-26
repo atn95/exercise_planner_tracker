@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { styles } from '../styles/DoublePanel';
-import '../../index.css';
-import AddPlanPopup from './AddPlanPopup';
-import Plan from './Plan';
-import DaySchedule from './DaySchedule';
+import { styles } from '../components/styles/DoublePanel';
+import '../index.css';
+import AddPlanPopup from '../components/workout/AddPlanPopup';
+import Plan from '../components/workout/Plan';
+import DaySchedule from '../components/workout/DaySchedule';
 import axios from 'axios';
 
 const PlanManager = () => {
