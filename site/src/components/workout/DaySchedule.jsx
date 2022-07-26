@@ -29,8 +29,8 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 	};
 
 	let [exerciseList, setExerciseList] = useState([]);
-
 	let [searched, setSearched] = useState(false);
+	let [showAddExerciseWindow, setShowAddExerciseWindow] = useState(false);
 
 	const pullExercise = async () => {
 		let exercises = await axios.get('http://localhost:3001/getexercise');
@@ -48,11 +48,23 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 		//search
 	};
 
+	const hideAddWindow = () => {
+		setShowAddExerciseWindow(false);
+	};
+
+	const showAddWindow = () => {
+		setShowAddExerciseWindow(true);
+	};
+
+	const addNewExercise = (exercise) => {
+		setExerciseList([exercise, ...exerciseList]);
+	};
+
 	return (
 		<div style={styles.container}>
+			{showAddExerciseWindow ? <AddExercise close={hideAddWindow} addExercise={addNewExercise} /> : ``}
 			<div>
 				<h3>{day.day}: </h3>
-				<button>Add</button>
 			</div>
 			{day.exercise.map((ex) => (
 				<div style={styles.exercise}>
@@ -74,6 +86,11 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 						<button onClick={() => addExercise(ex)}>+</button>
 					</div>
 				))}
+			</div>
+			<div style={styles.search}>
+				<button onClick={showAddWindow} style={styles.exercise} className='add'>
+					Add
+				</button>
 			</div>
 		</div>
 	);

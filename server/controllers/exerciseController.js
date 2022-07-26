@@ -16,6 +16,7 @@ const addExercise = async (req, res) => {
 		res.json({ ...exercise, message: `saved` });
 	} catch (error) {
 		console.log(error);
+		res.send({ message: `error` });
 	}
 };
 

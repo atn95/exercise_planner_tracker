@@ -5,7 +5,7 @@ import AddPlanPopup from './AddPlanPopup';
 import Plan from './Plan';
 import DaySchedule from './DaySchedule';
 
-const PlanManager = ({}) => {
+const PlanManager = () => {
 	//TODO: load plan from db
 	const componentStyles = {
 		label: {
@@ -93,31 +93,17 @@ const PlanManager = ({}) => {
 
 	const removeExercise = (exercise) => {
 		let tempSched = { ...schedule };
-		tempSched.schedule[dayIndex].exercise.splice(
-			tempSched.schedule[dayIndex].exercise.indexOf(exercise),
-			1
-		);
+		tempSched.schedule[dayIndex].exercise.splice(tempSched.schedule[dayIndex].exercise.indexOf(exercise), 1);
 		setSchedule(tempSched);
 	};
 
 	return (
 		<div style={styles.container}>
-			{showAddPopup ? (
-				<AddPlanPopup close={closeAddScreen} addPlan={addPlan} />
-			) : (
-				``
-			)}
+			{showAddPopup ? <AddPlanPopup close={closeAddScreen} addPlan={addPlan} /> : ``}
 			<div style={styles.leftPanel}>
 				<h3 style={componentStyles.label}>Current Plan: </h3>
 				{plans.map((plan) => (
-					<Plan
-						schedule={schedule}
-						dayIndex={dayIndex}
-						setDayIndex={setDayIndex}
-						plan={plan}
-						selectPlan={selectPlan}
-						selectedPlan={selectedPlan}
-					/>
+					<Plan schedule={schedule} dayIndex={dayIndex} setDayIndex={setDayIndex} plan={plan} selectPlan={selectPlan} selectedPlan={selectedPlan} />
 				))}
 				<div
 					style={{
@@ -137,11 +123,7 @@ const PlanManager = ({}) => {
 				</div>
 			</div>
 			<div style={styles.rightPanel}>
-				<DaySchedule
-					removeExercise={removeExercise}
-					addExercise={addExercise}
-					day={schedule.schedule[dayIndex]}
-				/>
+				<DaySchedule removeExercise={removeExercise} addExercise={addExercise} day={schedule.schedule[dayIndex]} />
 			</div>
 		</div>
 	);

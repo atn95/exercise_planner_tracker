@@ -60,11 +60,7 @@ const Exercise = ({ exercise }) => {
 									weight:{' '}
 									<input
 										style={styles.input}
-										value={
-											exerciseRecord
-												? exerciseRecord[exercise.indexOf(set)].weight
-												: ``
-										}
+										value={exerciseRecord ? exerciseRecord[exercise.indexOf(set)].weight : ``}
 										placeholder='0 lbs'
 										onChange={(e) => {
 											setWeight(e, exercise.indexOf(set));
@@ -75,11 +71,7 @@ const Exercise = ({ exercise }) => {
 								<div>
 									<input
 										style={styles.input}
-										value={
-											exerciseRecord
-												? exerciseRecord[exercise.indexOf(set)].reps
-												: ``
-										}
+										value={exerciseRecord ? exerciseRecord[exercise.indexOf(set)].reps : ``}
 										onChange={(e) => {
 											setReps(e, exercise.indexOf(set));
 										}}
