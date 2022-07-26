@@ -77,7 +77,7 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 			<div style={styles.search}>
 				<Search onSubmit={searchExercise} />
 			</div>
-			<div>
+			<div className='search-result'>
 				{exerciseList.map((ex) => (
 					<div style={styles.exercise}>
 						<h5 style={styles.exerciseText}>

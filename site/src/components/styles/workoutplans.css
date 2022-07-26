@@ -10,3 +10,8 @@
 .days:hover {
 	background-color: rgb(190, 190, 190);
 }
+
+.search-result {
+	max-height: 400px;
+	overflow: scroll;
+}
