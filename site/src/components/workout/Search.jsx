@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Search = ({ onSubmit, onChange }) => {
+const Search = ({ onSubmit, onChange, searchQuery }) => {
 	const styles = {
 		form: {
 			display: `flex`,
@@ -17,7 +17,7 @@ const Search = ({ onSubmit, onChange }) => {
 	return (
 		<div>
 			<form style={styles.form} onSubmit={onSubmit}>
-				<input style={styles.searchInput} type='text' name='search' />
+				<input style={styles.searchInput} type='text' value={searchQuery} onChange={onChange} name='search' />
 				<button type='submit'>search</button>
 			</form>
 		</div>

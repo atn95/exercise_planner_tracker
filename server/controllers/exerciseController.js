@@ -36,8 +36,7 @@ const searchExercise = async (req, res) => {
 				}
 			});
 		}
-		console.log(foundExercise);
-		res.json(searchTerms);
+		res.json(foundExercise);
 	} catch (error) {
 		console.log(error);
 		res.send({ message: `error` });

@@ -31,10 +31,13 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 	let [exerciseList, setExerciseList] = useState([]);
 	let [searched, setSearched] = useState(false);
 	let [showAddExerciseWindow, setShowAddExerciseWindow] = useState(false);
+	let [searchQuery, setSearchQuery] = useState(``);
 
 	const pullExercise = async () => {
-		let exercises = await axios.get('http://localhost:3001/getexercise');
+		let searchTerm = searchQuery.split(` `).join(`%20`);
+		let exercises = searchQuery.length > 0 ? await axios.get('http://localhost:3001/search/' + searchTerm) : await axios.get('http://localhost:3001/getexercise');
 		console.log(exercises.data);
+		setSearched(false);
 		setExerciseList(exercises.data);
 	};
 
@@ -45,6 +48,7 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 	const searchExercise = (e) => {
 		e.preventDefault();
 		console.log(`searching`);
+		setSearched(true);
 		//search
 	};
 
@@ -58,6 +62,11 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 
 	const addNewExercise = (exercise) => {
 		setExerciseList([exercise, ...exerciseList]);
+	};
+
+	const handleSearchQuery = (e) => {
+		e.preventDefault();
+		setSearchQuery(e.target.value);
 	};
 
 	return (
@@ -75,7 +84,7 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 				</div>
 			))}
 			<div style={styles.search}>
-				<Search onSubmit={searchExercise} />
+				<Search searchQuery={searchQuery} onChange={handleSearchQuery} onSubmit={searchExercise} />
 			</div>
 			<div className='search-result'>
 				{exerciseList.map((ex) => (
