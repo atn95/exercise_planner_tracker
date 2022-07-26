@@ -44,3 +44,21 @@ app.get(
 	},
 	collection.exercise.searchExercise
 );
+
+app.post(
+	'/create/plan',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.plan.createExercisePlan
+);
+
+app.get(
+	'/plan',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.plan.getExercisePlanFrom
+);

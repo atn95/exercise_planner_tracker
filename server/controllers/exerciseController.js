@@ -10,6 +10,7 @@ const getAllExercise = async (req, res) => {
 };
 
 const addExercise = async (req, res) => {
+	console.log(req.body);
 	try {
 		const exercise = await new Exercise(req.body);
 		exercise.save();

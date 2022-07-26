@@ -12,6 +12,13 @@
 }
 
 .search-result {
-	max-height: 400px;
+	max-height: 300px;
+	min-height: 300px;
+	overflow: scroll;
+}
+
+.plan-exercise {
+	max-height: 200px;
+	min-height: 200px;
 	overflow: scroll;
 }

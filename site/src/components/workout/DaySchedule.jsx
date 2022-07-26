@@ -75,14 +75,16 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 			<div>
 				<h3>{day.day}: </h3>
 			</div>
-			{day.exercise.map((ex) => (
-				<div style={styles.exercise}>
-					<h5 style={styles.exerciseText}>
-						{ex.name}: {ex.sets} x {ex.reps}
-					</h5>
-					<button onClick={() => removeExercise(ex)}>-</button>
-				</div>
-			))}
+			<div className='plan-exercise'>
+				{day.exercise.map((ex) => (
+					<div style={styles.exercise}>
+						<h5 style={styles.exerciseText}>
+							{ex.name}: {ex.sets} x {ex.reps}
+						</h5>
+						<button onClick={() => removeExercise(ex)}>-</button>
+					</div>
+				))}
+			</div>
 			<div style={styles.search}>
 				<Search searchQuery={searchQuery} onChange={handleSearchQuery} onSubmit={searchExercise} />
 			</div>

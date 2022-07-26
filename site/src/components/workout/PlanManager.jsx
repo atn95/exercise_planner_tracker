@@ -23,13 +23,11 @@ const PlanManager = () => {
 		btnStyle: { margin: `5px auto`, textAlign: `center` },
 	};
 
-	let [plans, setPlans] = useState([
-		{ name: `Plan 1`, id: `1234123` },
-		{
-			name: `Plan 2`,
-			id: `1234125`,
-		},
-	]);
+	let [plans, setPlans] = useState([]);
+
+	useEffect(() => {
+		//load plans
+	}, []);
 
 	let [selectedPlan, setSelectedPlan] = useState({
 		name: `Plan 1`,
@@ -83,6 +81,8 @@ const PlanManager = () => {
 			planId: plan.id,
 			name: plan.name,
 		});
+
+		console.log(schedule);
 	};
 
 	const addExercise = (exercise) => {

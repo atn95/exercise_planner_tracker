@@ -43,38 +43,22 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 		<div style={styles.container}>
 			<div style={styles.head} onClick={() => setShowPlans(!showPlans)}>
 				<h2 style={{ paddingLeft: `10px` }}> Workout Plan: {plan.name}</h2>
-				<h2
-					onClick={() => setShowPlans(!showPlans)}
-					style={{ paddingRight: `20px`, paddingLeft: `20px` }}>
+				<h2 onClick={() => setShowPlans(!showPlans)} style={{ paddingRight: `20px`, paddingLeft: `20px` }}>
 					{showPlans ? `-` : '+'}
 				</h2>
 			</div>
 			<div>
 				{showPlans
 					? plans.map((p) => (
-							<div
-								style={styles.plansDiv}
-								className='plansDiv'
-								onClick={() => changePlan(p)}>
-								<h2
-									style={
-										p.id == plan.id
-											? { fontWeight: `700` }
-											: { fontWeight: `300` }
-									}>
-									{p.name}
-								</h2>
+							<div style={styles.plansDiv} className='plansDiv' onClick={() => changePlan(p)}>
+								<h2 style={p.id == plan.id ? { fontWeight: `700` } : { fontWeight: `300` }}>{p.name}</h2>
 							</div>
 					  ))
 					: ''}
 				{showPlans ? (
-					<Link
-						to='/addplan'
-						style={{ textDecoration: `none`, color: `green` }}>
+					<Link to='/addplan' style={{ textDecoration: `none`, color: `green` }}>
 						<div style={styles.plansDiv} className='plansDiv'>
-							<h2 style={{ textDecoration: `none`, fontWeight: 500 }}>
-								Add Plan
-							</h2>
+							<h2 style={{ textDecoration: `none`, fontWeight: 500 }}>Manage Plan</h2>
 						</div>
 					</Link>
 				) : (
