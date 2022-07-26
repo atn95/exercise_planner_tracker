@@ -7,6 +7,7 @@ import Data from './pages/Data';
 import PlanManager from './pages/PlanManager';
 import { useState } from 'react';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
 	let [user, setUser] = useState(null);
@@ -46,7 +47,7 @@ function App() {
 				</Routes>
 			) : (
 				<Routes>
-					<Route path='/register' element={<div>Register page</div>} />
+					<Route path='/register' element={<Register />} />
 					<Route path='/*' element={<Login userValue={username} passValue={password} passChange={handlePasswordChange} userChange={handleUsernameChange} submit={login} />} />
 				</Routes>
 			)}

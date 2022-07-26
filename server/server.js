@@ -55,7 +55,7 @@ app.get(
 );
 
 //=================post====================
-app.post('/register', (req, res, next) => {});
+app.post('/register', collection.user.createUser);
 
 app.post(
 	'/addexercise',

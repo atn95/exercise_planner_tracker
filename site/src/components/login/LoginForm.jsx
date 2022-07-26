@@ -22,9 +22,14 @@ const LoginForm = ({ submit, userChange, passChange, userValue, passValue }) => 
 		linkStyle: {
 			textDecoration: `none`,
 			color: `black`,
+			width: `50%`,
 		},
 		btnStyle: {
 			width: `50%`,
+			height: `25px`,
+		},
+		linkBtnStyle: {
+			width: `100%`,
 			height: `25px`,
 		},
 	};
@@ -37,7 +42,7 @@ const LoginForm = ({ submit, userChange, passChange, userValue, passValue }) => 
 			<label style={styles.formItem} htmlFor='password'>
 				password:{' '}
 			</label>
-			<input style={styles.formItem} type='password' name='password' onChange={passChange} passValue={passValue} />
+			<input style={styles.formItem} type='password' name='password' onChange={passChange} value={passValue} />
 			<div>
 				<input type='checkbox' name='persist' />
 				<label htmlFor='persist'>keep me logged in</label>
@@ -46,11 +51,9 @@ const LoginForm = ({ submit, userChange, passChange, userValue, passValue }) => 
 				<button style={styles.btnStyle} type='submit'>
 					Login
 				</button>
-				<button style={styles.btnStyle}>
-					<Link to='/register' style={styles.linkStyle}>
-						Register
-					</Link>
-				</button>
+				<Link to='/register' style={styles.btnStyle}>
+					<button style={styles.linkBtnStyle}>Register</button>
+				</Link>
 			</div>
 		</form>
 	);
