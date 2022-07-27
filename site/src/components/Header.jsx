@@ -4,7 +4,7 @@ import homeImg from '../assets/home.png';
 import workoutImg from '../assets/workout.png';
 import dataImg from '../assets/data.png';
 
-const Header = () => {
+const Header = ({ setUser, user }) => {
 	const styles = {
 		container: {
 			display: 'flex',
@@ -36,6 +36,12 @@ const Header = () => {
 			top: `0`,
 		},
 	};
+
+	const logout = () => {
+		localStorage.removeItem('user');
+		setUser(null);
+	};
+
 	return (
 		<div style={styles.headerContainer}>
 			<header style={styles.container}>
@@ -50,6 +56,13 @@ const Header = () => {
 					<img style={styles.img} src={dataImg} />
 					Data
 				</Link>
+				{user ? (
+					<div style={styles.navItem} onClick={logout}>
+						<h4 style={{ margin: `0` }}>Logout</h4>
+					</div>
+				) : (
+					''
+				)}
 			</header>
 		</div>
 	);

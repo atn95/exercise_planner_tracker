@@ -8,9 +8,10 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+app.use(cors({ credentials: true, origin: true }));
+app.options('*', cors());
 app.use(express.json());
 app.use(logger(`dev`));
-app.use(cors());
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
@@ -56,6 +57,7 @@ app.get(
 
 //=================post====================
 app.post('/register', collection.user.createUser);
+app.post('/login', collection.user.login);
 
 app.post(
 	'/addexercise',

@@ -15,4 +15,21 @@ const createUser = async (req, res) => {
 	} catch (error) {}
 };
 
-module.exports = { createUser };
+const login = async (req, res) => {
+	try {
+		let reqUser = req.body.username;
+		let reqPass = req.body.password;
+		const user = await User.find({ username: reqUser });
+		if (reqPass == user[0].password) {
+			let resp = { ...user[0]._doc, message: 'success' };
+			delete resp.password;
+			res.status(200).json(resp);
+		} else {
+			res.json({ message: 'invalid username or password' });
+		}
+	} catch (error) {
+		res.json({ message: 'invalid username or password' });
+	}
+};
+
+module.exports = { createUser, login };

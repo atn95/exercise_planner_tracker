@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const LoginForm = ({ submit, userChange, passChange, userValue, passValue }) => {
+const LoginForm = ({ submit, userChange, passChange, userValue, passValue, keepLoginHandler, persist}) => {
 	const styles = {
 		formStyle: {
 			display: `flex`,
@@ -44,7 +44,7 @@ const LoginForm = ({ submit, userChange, passChange, userValue, passValue }) => 
 			</label>
 			<input style={styles.formItem} type='password' name='password' onChange={passChange} value={passValue} />
 			<div>
-				<input type='checkbox' name='persist' />
+				<input type='checkbox' name='persist' checked={persist} onChange={keepLoginHandler} />
 				<label htmlFor='persist'>keep me logged in</label>
 			</div>
 			<div style={styles.buttonDiv}>
