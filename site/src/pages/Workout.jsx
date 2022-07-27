@@ -16,7 +16,6 @@ const Workout = ({ user, updatePlan }) => {
 	let [plans, setPlans] = useState([]);
 	let [plan, setPlan] = useState(user.plan);
 	let [selectedExercise, setSelectedExercise] = useState(null);
-	let [exerciseRecord, setExerciseRecord] = useState(null);
 
 	useEffect(() => {
 		//load plans
@@ -33,37 +32,12 @@ const Workout = ({ user, updatePlan }) => {
 		const saveUserPlan = async () => {
 			const res = await axios.put('http://127.0.0.1:3001/user/updateplan', { _id: user._id, plan: plan._id });
 			let schedule = await axios.get(`http://127.0.0.1:3001/plan/id`, { params: { planId: plan._id } });
-			console.log(user);
 			let day = new Date().getDay();
-			console.log(schedule.data[0].schedule[day].exercise);
 			setExercises(schedule.data[0].schedule[day].exercise);
 		};
 		saveUserPlan();
 	}, [plan]);
 
-	//make exercise record template
-	useEffect(() => {
-		const initializeExerciseRecord = () => {
-			let exRecord = [];
-			exercises.forEach((ex) => {
-				exRecord.push([]);
-				for (let i = 0; i < ex.sets; i++) {
-					exRecord[exercises.indexOf(ex)].push({
-						name: ex.name,
-						exerciseId: ex.id,
-						set: i,
-						weight: ``,
-						reps: ``,
-						units: ex.units,
-					});
-				}
-			});
-			setExerciseRecord(exRecord);
-			// console.log(exRecord);
-		};
-		console.log(`loaded`);
-		initializeExerciseRecord();
-	}, [exercises]);
 	return (
 		<div>
 			<WorkoutPlans plans={plans} plan={plan} setPlan={setPlan}></WorkoutPlans>

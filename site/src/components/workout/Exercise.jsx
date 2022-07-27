@@ -33,7 +33,6 @@ const Exercise = ({ exercise, user }) => {
 	const loadTodayLog = async () => {
 		if (loadlog) {
 			let log = await axios.post('http://127.0.0.1:3001/log/gettoday', { userId: user._id, exerciseId: exercise._id });
-			console.log(log.data);
 			setExerciseRecord(log.data);
 		} else {
 			setLoadLog(true);
@@ -57,9 +56,7 @@ const Exercise = ({ exercise, user }) => {
 
 	const saveData = (e) => {
 		e.preventDefault();
-		//TODO: save to database
 		setSaving(true);
-		console.log(`saved`, exerciseRecord);
 	};
 
 	const setWeight = (e, index) => {
@@ -83,7 +80,7 @@ const Exercise = ({ exercise, user }) => {
 					? exerciseRecord.sets.map((set) => (
 							<div style={styles.set}>
 								<div>
-									<label>Set: {set.set}</label>
+									<label>Set: {set.set + 1}</label>
 								</div>
 								<div>
 									<label>Weight: </label>

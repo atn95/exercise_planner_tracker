@@ -5,7 +5,7 @@ const createRecord = async (req, res) => {
 		const exercise = await Exercise.findById(req.body.exerciseId);
 		let sets = [];
 		for (let i = 0; i < exercise.sets; i++) {
-			sets.push({ set: i, weight: 0, units: exercise.units, reps: 0 });
+			sets.push({ set: i, weight: null, units: exercise.units, reps: null });
 		}
 		let record = { exerciseId: req.body.exerciseId, sets: sets, userId: req.body.userId };
 		const recordLog = await new WorkoutRecord(record);
@@ -13,7 +13,6 @@ const createRecord = async (req, res) => {
 		res.json(recordLog);
 	} catch (error) {
 		console.log(error);
-		// res.status(200).send(`error`);
 	}
 };
 
