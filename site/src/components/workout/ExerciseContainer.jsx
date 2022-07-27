@@ -1,5 +1,3 @@
-
-
 const ExerciseContainer = ({ exercises, selectedExercise, setExercise }) => {
 	let styles = {
 		container: {
@@ -32,11 +30,10 @@ const ExerciseContainer = ({ exercises, selectedExercise, setExercise }) => {
 		<div style={styles.container}>
 			<h3 style={styles.ContainerTitle}>Workout:</h3>
 			{exercises.map((ex) => (
-				<div
-					onClick={() => setExercise(ex)}
-					style={styles.exerciseCont}
-					className={ex.id == selectedExercise.id ? `selected` : ``}>
-					<h4 style={styles.left}>{ex.name}</h4>
+				<div onClick={() => setExercise(ex)} style={styles.exerciseCont} className={selectedExercise && ex._id == selectedExercise._id ? `selected` : ``}>
+					<h4 style={styles.left}>
+						{ex.name} {ex.sets}x{ex.reps}
+					</h4>
 				</div>
 			))}
 		</div>

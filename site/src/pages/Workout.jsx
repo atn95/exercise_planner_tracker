@@ -11,22 +11,11 @@ const Workout = ({ user, updatePlan }) => {
 		textAlign: `left`,
 	};
 
-	let [exercises, setExercises] = useState([
-		{ name: `Bench`, sets: 4, reps: 8, units: `reps`, id: `231412323` },
-		{ name: `Bicep Curls`, sets: 4, reps: 8, units: `reps`, id: `2323143` },
-		{ name: `Pullups`, sets: 4, reps: 8, units: `reps`, id: `1242343` },
-		{ name: `Shoulder Press`, sets: 4, reps: 8, units: `reps`, id: `12321342` },
-	]);
+	let [exercises, setExercises] = useState([]);
 
 	let [plans, setPlans] = useState([]);
 	let [plan, setPlan] = useState(user.plan);
-	let [selectedExercise, setSelectedExercise] = useState({
-		name: `Bench`,
-		sets: 4,
-		reps: 8,
-		units: `reps`,
-		id: `231412323`,
-	});
+	let [selectedExercise, setSelectedExercise] = useState(null);
 	let [exerciseRecord, setExerciseRecord] = useState(null);
 
 	useEffect(() => {
@@ -43,6 +32,11 @@ const Workout = ({ user, updatePlan }) => {
 		updatePlan(plan);
 		const saveUserPlan = async () => {
 			const res = await axios.put('http://127.0.0.1:3001/user/updateplan', { _id: user._id, plan: plan._id });
+			let schedule = await axios.get(`http://127.0.0.1:3001/plan/id`, { params: { planId: plan._id } });
+			console.log(user);
+			let day = new Date().getDay();
+			console.log(schedule.data[0].schedule[day].exercise);
+			setExercises(schedule.data[0].schedule[day].exercise);
 		};
 		saveUserPlan();
 	}, [plan]);
@@ -70,9 +64,6 @@ const Workout = ({ user, updatePlan }) => {
 		console.log(`loaded`);
 		initializeExerciseRecord();
 	}, [exercises]);
-
-	console.log(user);
-
 	return (
 		<div>
 			<WorkoutPlans plans={plans} plan={plan} setPlan={setPlan}></WorkoutPlans>
@@ -81,8 +72,8 @@ const Workout = ({ user, updatePlan }) => {
 					<ExerciseContainer exercises={exercises} selectedExercise={selectedExercise} setExercise={setSelectedExercise} />
 				</div>
 				<div style={styles.rightPanel}>
-					<h3 style={label}>Exercise: {selectedExercise.name}</h3>
-					{exerciseRecord ? <Exercise exercise={exerciseRecord.exerciseID} /> : ``}
+					<h3 style={label}>Exercise: {selectedExercise ? `${selectedExercise.name}` : ''}</h3>
+					{selectedExercise ? <Exercise exercise={selectedExercise} user={user} /> : ``}
 				</div>
 			</div>
 		</div>

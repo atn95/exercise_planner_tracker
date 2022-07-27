@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const Exercise = ({ exercise }) => {
+const Exercise = ({ exercise, user }) => {
 	const styles = {
 		container: {
 			display: `flex`,
@@ -21,68 +22,81 @@ const Exercise = ({ exercise }) => {
 		},
 	};
 
-	let [exerciseRecord, setExerciseRecord] = useState(exercise);
+	let [exerciseRecord, setExerciseRecord] = useState(null);
+	let [loadlog, setLoadLog] = useState(false);
+	let [saving, setSaving] = useState(false);
 
 	useEffect(() => {
-		setExerciseRecord(exercise);
-	}, [exercise]);
+		loadTodayLog();
+	}, []);
+
+	const loadTodayLog = async () => {
+		if (loadlog) {
+			let log = await axios.post('http://127.0.0.1:3001/log/gettoday', { userId: user._id, exerciseId: exercise._id });
+			console.log(log.data);
+			setExerciseRecord(log.data);
+		} else {
+			setLoadLog(true);
+		}
+	};
+
+	useEffect(() => {
+		loadTodayLog();
+	}, [exercise, loadlog]);
+
+	useEffect(() => {
+		const saveToDb = async () => {
+			if (saving) {
+				let resp = await axios.put('http://127.0.0.1:3001/log/save', exerciseRecord);
+				console.log(resp);
+				setSaving(false);
+			}
+		};
+		saveToDb();
+	}, [saving]);
 
 	const saveData = (e) => {
 		e.preventDefault();
 		//TODO: save to database
+		setSaving(true);
 		console.log(`saved`, exerciseRecord);
 	};
 
 	const setWeight = (e, index) => {
 		e.preventDefault();
-		let tempDataRecord = { ...exerciseRecord };
-		tempDataRecord[index].weight = e.target.value;
-		setExerciseRecord(tempDataRecord);
-		console.log(index);
+		let temprecord = { ...exerciseRecord };
+		temprecord.sets[index].weight = e.target.value;
+		setExerciseRecord(temprecord);
 	};
 
 	const setReps = (e, index) => {
 		e.preventDefault();
-		let tempDataRecord = { ...exerciseRecord };
-		tempDataRecord[index].reps = e.target.value;
-		setExerciseRecord(tempDataRecord);
-		console.log(index);
+		let temprecord = { ...exerciseRecord };
+		temprecord.sets[index].reps = e.target.value;
+		setExerciseRecord(temprecord);
 	};
 
 	return (
 		<div style={styles.container}>
 			<form onSubmit={saveData} method='get'>
-				{exercise
-					? exercise.map((set) => (
+				{exerciseRecord
+					? exerciseRecord.sets.map((set) => (
 							<div style={styles.set}>
-								<label>Set: {set.set + 1}</label>
 								<div>
-									weight:{' '}
-									<input
-										style={styles.input}
-										value={exerciseRecord ? exerciseRecord[exercise.indexOf(set)].weight : ``}
-										placeholder='0 lbs'
-										onChange={(e) => {
-											setWeight(e, exercise.indexOf(set));
-										}}
-										type='text'
-										name='weight'></input>
+									<label>Set: {set.set}</label>
 								</div>
 								<div>
-									<input
-										style={styles.input}
-										value={exerciseRecord ? exerciseRecord[exercise.indexOf(set)].reps : ``}
-										onChange={(e) => {
-											setReps(e, exercise.indexOf(set));
-										}}
-										type='text'
-										placeholder='0'
-										name='reps'></input>
-									{' ' + set.units}
+									<label>Weight: </label>
+									<input onChange={(e) => setWeight(e, set.set)} value={set.weight} style={styles.input} type='text' name='weight' />
+									<label htmlFor='units'> {set.units}</label>
+								</div>
+								<div>
+									<label>reps: </label>
+									<input onChange={(e) => setReps(e, set.set)} value={set.reps} style={styles.input} type='text' name='reps' />
 								</div>
 							</div>
 					  ))
-					: ``}
+					: ''}
 				{exercise ? (
 					<button style={styles.saveBtn} type='submit'>
 						save

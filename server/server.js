@@ -58,6 +58,8 @@ app.get(
 
 app.put('/user/updateplan', collection.user.updateUserPlan);
 
+app.put('/log/save', collection.exerciseLogger.saveRecord);
+
 //=================post====================
 app.post('/register', collection.user.createUser);
 app.post('/login', collection.user.login);
@@ -90,7 +92,16 @@ app.post(
 );
 
 app.post(
-	'/log/exercise',
+	'/log/gettoday',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.exerciseLogger.getToday
+);
+
+app.post(
+	'/log/create',
 	(req, res, next) => {
 		//check auth
 		next();
