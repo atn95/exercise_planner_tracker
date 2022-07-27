@@ -54,6 +54,9 @@ app.get(
 	},
 	collection.plan.getExercisePlanFromUser
 );
+//===============put======================
+
+app.put('/user/updateplan', collection.user.updateUserPlan);
 
 //=================post====================
 app.post('/register', collection.user.createUser);

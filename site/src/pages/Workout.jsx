@@ -3,8 +3,9 @@ import WorkoutPlans from '../components/workout/WorkoutPlans';
 import ExerciseContainer from '../components/workout/ExerciseContainer';
 import Exercise from '../components/workout/Exercise';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const Workout = () => {
+const Workout = ({ user, updatePlan }) => {
 	const label = {
 		paddingLeft: `10px`,
 		textAlign: `left`,
@@ -17,15 +18,8 @@ const Workout = () => {
 		{ name: `Shoulder Press`, sets: 4, reps: 8, units: `reps`, id: `12321342` },
 	]);
 
-	let [plans, setPlans] = useState([
-		{ name: `Plan 1`, id: `1234123` },
-		{ name: `Plan 2`, id: `123423` },
-		{ name: `Plan 3`, id: `42321432` },
-		{ name: `Plan 4`, id: `4234234` },
-	]);
-
+	let [plans, setPlans] = useState([]);
 	let [plan, setPlan] = useState({ name: `Plan 1`, id: `1234123` });
-
 	let [selectedExercise, setSelectedExercise] = useState({
 		name: `Bench`,
 		sets: 4,
@@ -33,8 +27,25 @@ const Workout = () => {
 		units: `reps`,
 		id: `231412323`,
 	});
-
 	let [exerciseRecord, setExerciseRecord] = useState([]);
+
+	useEffect(() => {
+		//load plans
+		const getPlansByUser = async () => {
+			let plans = await axios.get(`http://127.0.0.1:3001/plan`, { params: { userId: user._id } });
+			setPlans(plans.data);
+		};
+		getPlansByUser();
+	}, []);
+
+	//saving plans to user
+	useEffect(() => {
+		updatePlan(plan);
+		const saveUserPlan = async () => {
+			const res = await axios.put('http://127.0.0.1:3001/user/updateplan', { _id: user._id, plan: plan._id });
+		};
+		saveUserPlan();
+	}, [plan]);
 
 	//make exercise record template
 	useEffect(() => {
@@ -65,17 +76,11 @@ const Workout = () => {
 			<WorkoutPlans plans={plans} plan={plan} setPlan={setPlan}></WorkoutPlans>
 			<div style={styles.container}>
 				<div style={styles.rightPanel}>
-					<ExerciseContainer
-						exercises={exercises}
-						selectedExercise={selectedExercise}
-						setExercise={setSelectedExercise}
-					/>
+					<ExerciseContainer exercises={exercises} selectedExercise={selectedExercise} setExercise={setSelectedExercise} />
 				</div>
 				<div style={styles.leftPanel}>
 					<h3 style={label}>Exercise: {selectedExercise.name}</h3>
-					<Exercise
-						exercise={exerciseRecord[exercises.indexOf(selectedExercise)]}
-					/>
+					<Exercise exercise={exerciseRecord[exercises.indexOf(selectedExercise)]} />
 				</div>
 			</div>
 		</div>

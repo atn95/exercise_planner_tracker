@@ -51,7 +51,7 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 				{showPlans
 					? plans.map((p) => (
 							<div style={styles.plansDiv} className='plansDiv' onClick={() => changePlan(p)}>
-								<h2 style={p.id == plan.id ? { fontWeight: `700` } : { fontWeight: `300` }}>{p.name}</h2>
+								<h2 style={p._id == plan._id ? { fontWeight: `700` } : { fontWeight: `300` }}>{p.name}</h2>
 							</div>
 					  ))
 					: ''}

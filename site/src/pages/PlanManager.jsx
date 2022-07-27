@@ -6,7 +6,7 @@ import Plan from '../components/workout/Plan';
 import DaySchedule from '../components/workout/DaySchedule';
 import axios from 'axios';
 
-const PlanManager = () => {
+const PlanManager = ({ user }) => {
 	//TODO: load plan from db
 	const componentStyles = {
 		label: {
@@ -29,7 +29,7 @@ const PlanManager = () => {
 	useEffect(() => {
 		//load plans
 		const getPlansByUser = async () => {
-			let plans = await axios.get(`http://127.0.0.1:3001/plan`, { params: { userId: 'Test21234' } });
+			let plans = await axios.get(`http://127.0.0.1:3001/plan`, { params: { userId: user._id } });
 			setPlans(plans.data);
 		};
 		getPlansByUser();
@@ -97,7 +97,7 @@ const PlanManager = () => {
 
 	return (
 		<div style={styles.container}>
-			{showAddPopup ? <AddPlanPopup close={closeAddScreen} addPlan={addPlan} /> : ``}
+			{showAddPopup ? <AddPlanPopup user={user} close={closeAddScreen} addPlan={addPlan} /> : ``}
 			<div style={styles.leftPanel}>
 				<h3 style={componentStyles.label}>Current Plan: </h3>
 				{plans.map((plan) => (

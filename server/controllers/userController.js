@@ -32,4 +32,15 @@ const login = async (req, res) => {
 	}
 };
 
-module.exports = { createUser, login };
+const updateUserPlan = async (req, res) => {
+	console.log(req.body);
+	try {
+		const user = await User.findOneAndUpdate({ _id: req.body._id }, { plan: req.body.plan });
+		res.json({ message: 'success' });
+	} catch (error) {
+		console.log(error);
+		res.json({ message: 'error' });
+	}
+};
+
+module.exports = { createUser, login, updateUserPlan };

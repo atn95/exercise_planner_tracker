@@ -21,14 +21,11 @@ function App() {
 	useEffect(() => {
 		if (localStorage.getItem(`user`)) {
 			setUser(JSON.parse(localStorage.getItem(`user`)));
-		} else {
-			console.log(`doesnt have user`);
 		}
 	}, []);
 
 	const login = (e) => {
 		e.preventDefault();
-		console.log(`logging in `);
 		setLoginAtempt(true);
 	};
 
@@ -43,8 +40,13 @@ function App() {
 	};
 
 	const handleKeepLogin = (e) => {
-		console.log(persist);
 		setPersist(e.target.checked);
+	};
+
+	const setPlan = (plan) => {
+		let temp = { ...user, plan: plan };
+		setUser(temp);
+		localStorage.setItem('user', JSON.stringify(temp));
 	};
 
 	useEffect(() => {
@@ -53,9 +55,7 @@ function App() {
 				console.log(`in Use effect`);
 				setLoginAtempt(false);
 				let u = { username: username, password: password };
-				console.log(u);
 				let resp = await axios.post('http://127.0.0.1:3001/login', u);
-				console.log(resp);
 				if (resp.data.message == 'success') {
 					setUser(resp.data);
 					if (persist) {
@@ -79,9 +79,9 @@ function App() {
 			{user ? (
 				<Routes>
 					<Route path='/' element={<Home />} />
-					<Route path='/workout' element={<Workout />} />
-					<Route path='/data' element={<Data />} />
-					<Route path='/addplan' element={<PlanManager />} />
+					<Route path='/workout' element={<Workout updatePlan={setPlan} user={user} />} />
+					<Route path='/data' element={<Data user={user} />} />
+					<Route path='/addplan' element={<PlanManager user={user} />} />
 				</Routes>
 			) : (
 				<Routes>

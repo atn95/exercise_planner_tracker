@@ -13,6 +13,7 @@ const createExercisePlan = async (req, res) => {
 				{ day: 'Friday', exercise: [] },
 				{ day: 'Saturday', exercise: [] },
 			],
+			userId: req.body.userId,
 		};
 		const plan = await new ExercisePlan(newPlan);
 		plan.save();
