@@ -68,4 +68,11 @@ const getUniqueExercise = async (req, res) => {
 	}
 };
 
-module.exports = { createRecord, getToday, saveRecord, getUniqueExercise };
+const getRecordsByExercise = async (req, res) => {
+	try {
+		let records = await WorkoutRecord.find({ exerciseId: req.query.exerciseId, userId: req.query.userId });
+		res.json(records);
+	} catch (error) {}
+};
+
+module.exports = { createRecord, getToday, saveRecord, getUniqueExercise, getRecordsByExercise };

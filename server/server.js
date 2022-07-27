@@ -56,6 +56,8 @@ app.get(
 );
 
 app.get('/recordlist', collection.exerciseLogger.getUniqueExercise);
+
+app.get('/recordbyexercise', collection.exerciseLogger.getRecordsByExercise);
 //===============put======================
 
 app.put('/user/updateplan', collection.user.updateUserPlan);
