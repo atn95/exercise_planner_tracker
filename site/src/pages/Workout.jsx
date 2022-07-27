@@ -19,7 +19,7 @@ const Workout = ({ user, updatePlan }) => {
 	]);
 
 	let [plans, setPlans] = useState([]);
-	let [plan, setPlan] = useState({ name: `Plan 1`, id: `1234123` });
+	let [plan, setPlan] = useState(user.plan);
 	let [selectedExercise, setSelectedExercise] = useState({
 		name: `Bench`,
 		sets: 4,
@@ -27,7 +27,7 @@ const Workout = ({ user, updatePlan }) => {
 		units: `reps`,
 		id: `231412323`,
 	});
-	let [exerciseRecord, setExerciseRecord] = useState([]);
+	let [exerciseRecord, setExerciseRecord] = useState(null);
 
 	useEffect(() => {
 		//load plans
@@ -71,16 +71,18 @@ const Workout = ({ user, updatePlan }) => {
 		initializeExerciseRecord();
 	}, [exercises]);
 
+	console.log(user);
+
 	return (
 		<div>
 			<WorkoutPlans plans={plans} plan={plan} setPlan={setPlan}></WorkoutPlans>
 			<div style={styles.container}>
-				<div style={styles.rightPanel}>
+				<div style={styles.leftPanel}>
 					<ExerciseContainer exercises={exercises} selectedExercise={selectedExercise} setExercise={setSelectedExercise} />
 				</div>
-				<div style={styles.leftPanel}>
+				<div style={styles.rightPanel}>
 					<h3 style={label}>Exercise: {selectedExercise.name}</h3>
-					<Exercise exercise={exerciseRecord[exercises.indexOf(selectedExercise)]} />
+					{exerciseRecord ? <Exercise exercise={exerciseRecord.exerciseID} /> : ``}
 				</div>
 			</div>
 		</div>

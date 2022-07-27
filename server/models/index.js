@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ExerciseSchema = require('./exercise');
-const WorkoutRecordSchema = require('./workoutRecord');
+const WorkoutRecordSchema = require('./workoutrecord');
 const ExercisePlanSchema = require('./exerciseplan');
 const UserSchema = require('./user');
 

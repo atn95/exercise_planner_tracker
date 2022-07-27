@@ -58,7 +58,7 @@ const Header = ({ setUser, user }) => {
 				</Link>
 				{user ? (
 					<div style={styles.navItem} onClick={logout}>
-						<h4 style={{ margin: `0` }}>Logout</h4>
+						Logout
 					</div>
 				) : (
 					''

@@ -88,3 +88,12 @@ app.post(
 	},
 	collection.plan.updatePlan
 );
+
+app.post(
+	'/log/exercise',
+	(req, res, next) => {
+		//check auth
+		next();
+	},
+	collection.exerciseLogger.createRecord
+);

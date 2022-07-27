@@ -76,6 +76,7 @@ const Exercise = ({ exercise }) => {
 											setReps(e, exercise.indexOf(set));
 										}}
 										type='text'
+										placeholder='0'
 										name='reps'></input>
 									{' ' + set.units}
 								</div>
