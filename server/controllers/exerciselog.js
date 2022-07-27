@@ -55,9 +55,7 @@ const getUniqueExercise = async (req, res) => {
 				uniqueExId.push(record.exerciseId);
 			}
 		});
-
 		let foundExercise = [];
-
 		for (const id of uniqueExId) {
 			let ex = await Exercise.findOne({ _id: id });
 			console.log(`ex:`, ex.toObject());
