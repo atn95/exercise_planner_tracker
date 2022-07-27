@@ -5,7 +5,7 @@ const Data = ({ user }) => {
 	return (
 		<div style={styles.container}>
 			<div style={styles.leftPanel}>
-				<ExercisePanel />
+				<ExercisePanel user={user} />
 			</div>
 			<div style={styles.rightPanel}>Right</div>
 		</div>

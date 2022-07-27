@@ -54,6 +54,8 @@ app.get(
 	},
 	collection.plan.getExercisePlanFromUser
 );
+
+app.get('/recordlist', collection.exerciseLogger.getUniqueExercise);
 //===============put======================
 
 app.put('/user/updateplan', collection.user.updateUserPlan);

@@ -44,4 +44,30 @@ const saveRecord = async (req, res) => {
 	} catch (error) {}
 };
 
-module.exports = { createRecord, getToday, saveRecord };
+const getUniqueExercise = async (req, res) => {
+	try {
+		let exerciseIdTracker = {};
+		let uniqueExId = [];
+		let records = await WorkoutRecord.find({ userId: req.query.userId });
+		records.forEach((record) => {
+			if (!exerciseIdTracker[record.exerciseId]) {
+				exerciseIdTracker[record.exerciseId] = true;
+				uniqueExId.push(record.exerciseId);
+			}
+		});
+
+		let foundExercise = [];
+
+		for (const id of uniqueExId) {
+			let ex = await Exercise.findOne({ _id: id });
+			console.log(`ex:`, ex.toObject());
+			foundExercise.push(ex);
+		}
+
+		res.send(foundExercise);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+module.exports = { createRecord, getToday, saveRecord, getUniqueExercise };
