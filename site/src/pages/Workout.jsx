@@ -12,7 +12,6 @@ const Workout = ({ user, updatePlan }) => {
 	};
 
 	let [exercises, setExercises] = useState([]);
-
 	let [plans, setPlans] = useState([]);
 	let [plan, setPlan] = useState(user.plan);
 	let [selectedExercise, setSelectedExercise] = useState(null);

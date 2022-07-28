@@ -22,7 +22,6 @@ const ExercisePanel = ({ user, setSelected, selected }) => {
 		headerBtn: {
 			width: `38px`,
 			height: `38px`,
-			border: `2px solid red`,
 			display: `flex`,
 			justifyContent: `center`,
 		},

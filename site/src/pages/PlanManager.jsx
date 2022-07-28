@@ -95,13 +95,23 @@ const PlanManager = ({ user }) => {
 		setSave(true);
 	};
 
+	const deletePlan = async () => {
+		console.log(`clicked`);
+		let resp = await axios.delete('http://127.0.0.1:3001/plan/' + selectedPlan._id);
+		console.log(resp.data);
+		let tempPlans = [...plans];
+		tempPlans.splice(plans.indexOf(selectedPlan), 1);
+		setPlans(tempPlans);
+		setSelectedPlan(null);
+	};
+
 	return (
 		<div style={styles.container}>
 			{showAddPopup ? <AddPlanPopup user={user} close={closeAddScreen} addPlan={addPlan} /> : ``}
 			<div style={styles.leftPanel}>
 				<h3 style={componentStyles.label}>Current Plan: </h3>
 				{plans.map((plan) => (
-					<Plan schedule={schedule} dayIndex={dayIndex} setDayIndex={setDayIndex} plan={plan} selectPlan={selectPlan} selectedPlan={selectedPlan} />
+					<Plan schedule={schedule} dayIndex={dayIndex} setDayIndex={setDayIndex} plan={plan} selectPlan={selectPlan} selectedPlan={selectedPlan} deletePlan={deletePlan} />
 				))}
 				<div
 					className='save'
