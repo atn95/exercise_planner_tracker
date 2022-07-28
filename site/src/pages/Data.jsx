@@ -3,18 +3,17 @@ import ChartPanel from '../components/data/ChartPanel';
 import { useState, useEffect } from 'react';
 import { dataPageStyles as styles } from '../components/styles/dataStyle';
 import axios from 'axios';
-import 'chartjs-adapter-date-fns';
-import { Chart } from 'chart.js';
 
 const Data = ({ user }) => {
 	let [selected, setSelected] = useState(null);
 	let [loaded, setLoaded] = useState(false);
 	let [data, setData] = useState([]);
-	let [userRecords, setUserRecords] = useState([]); //data for chart
-	let [workoutRecords, setWorkoutRecords] = useState(null);
+	let [userRecords, setUserRecords] = useState(null); //data for chart
+	let [chartOptions, setChartOptions] = useState(null);
 
 	const getExerciseHistory = async () => {
 		let resp = await axios.get('http://127.0.0.1:3001/recordbyexercise', { params: { exerciseId: selected._id, userId: user._id } });
+		console.log(resp.data);
 		let mapped = resp.data.map((rec) => {
 			let heaviest = 0;
 			rec.sets.forEach((set) => {
@@ -22,27 +21,49 @@ const Data = ({ user }) => {
 					heaviest = set.weight;
 				}
 			});
-			return { weight: heaviest, date: new Date(rec.createdAt) };
+			return { weight: heaviest, date: new Date(rec.createdAt), units: rec.sets[0].units };
 		});
 		mapped.sort((a, b) => {
 			return a.date.getTime() - b.date.getTime();
 		});
-		setWorkoutRecords(resp.data);
-		console.log(mapped);
 		setData(mapped);
-
-		let chartdata = {
-			datasets: [
-				{
-					label: `${selected.name} Progess`,
-					data: mapped.map((d) => {
-						return { x: d.date.toISOString(), y: d.weight };
-					}),
-				},
-			],
-		};
-		setUserRecords(chartdata);
 	};
+
+	useEffect(() => {
+		if (data.length > 0 && loaded) {
+			let chartdata = {
+				datasets: [
+					{
+						borderColor: '#e95151',
+						pointRadius: 5,
+						pointHoverRadius: 10,
+						label: `${selected.name} Progess`,
+						data: data.map((d) => {
+							return { x: d.date.toISOString(), y: d.weight };
+						}),
+					},
+				],
+			};
+
+			let options = {
+				scales: {
+					x: {
+						type: 'time',
+					},
+					y: {
+						beginAtZero: true,
+						title: {
+							display: true,
+							text: 'Weight in ' + data[0].units,
+						},
+					},
+				},
+			};
+			console.log(data);
+			setChartOptions(options);
+			setUserRecords(chartdata);
+		}
+	}, [loaded, data]);
 
 	useEffect(() => {
 		if (loaded) {
@@ -57,7 +78,7 @@ const Data = ({ user }) => {
 			<div style={styles.leftPanel}>
 				<ExercisePanel user={user} selected={selected} setSelected={setSelected} />
 			</div>
-			<div style={styles.rightPanel}>{selected && data.length > 0 && userRecords ? <ChartPanel chartData={userRecords} /> : ''}</div>
+			<div style={styles.rightPanel}>{userRecords && chartOptions ? <ChartPanel chartData={userRecords} chartOptions={chartOptions} /> : ``}</div>
 		</div>
 	);
 };
