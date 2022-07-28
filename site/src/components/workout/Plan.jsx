@@ -1,3 +1,5 @@
+import deleteIcon from '../../assets/delete.png';
+
 const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule }) => {
 	const styles = {
 		plans: {
@@ -9,12 +11,15 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule 
 			paddingLeft: `10px`,
 			background: `white`,
 		},
-		dates: {},
+		header: {
+			display: `flex`,
+			justifyContent: `space-between`,
+			marginRight: `10px`,
+		},
 	};
 
 	const chooseDate = (index) => {
 		setDayIndex(index);
-		console.log(dayIndex);
 	};
 
 	const showDates = () => {
@@ -35,11 +40,15 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule 
 
 	return (
 		<div onClick={() => selectPlan(plan)} style={styles.plans} className={'plansPageDiv '}>
-			{
-				<h5 className={selectedPlan && selectedPlan._id == plan._id ? 'selected' : ''} style={{ margin: `5px auto` }}>
-					{plan.name}
-				</h5>
-			}
+			{' '}
+			<div style={styles.header}>
+				{
+					<h5 className={selectedPlan && selectedPlan._id == plan._id ? 'selected' : ''} style={{ margin: `5px` }}>
+						{plan.name}
+					</h5>
+				}
+				{selectedPlan && selectedPlan._id == plan._id ? <input type='image' src={deleteIcon} alt='delete btn' /> : ''}
+			</div>
 			{selectedPlan != null && schedule != null && plan._id === schedule._id ? showDates() : ''}
 		</div>
 	);
