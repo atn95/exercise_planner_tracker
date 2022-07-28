@@ -42,7 +42,7 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 	return (
 		<div style={styles.container}>
 			<div style={styles.head} onClick={() => setShowPlans(!showPlans)}>
-				<h2 style={{ paddingLeft: `10px` }}> Workout Plan: {plan.name}</h2>
+				<h2 style={{ paddingLeft: `10px` }}> Workout Plan: {plan ? plan.name : ''}</h2>
 				<h2 onClick={() => setShowPlans(!showPlans)} style={{ paddingRight: `20px`, paddingLeft: `20px` }}>
 					{showPlans ? `-` : '+'}
 				</h2>
@@ -51,7 +51,7 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 				{showPlans
 					? plans.map((p) => (
 							<div style={styles.plansDiv} className='plansDiv' onClick={() => changePlan(p)}>
-								<h2 style={p._id == plan._id ? { fontWeight: `700` } : { fontWeight: `300` }}>{p.name}</h2>
+								<h2 style={p && plan && p._id == plan._id ? { fontWeight: `700` } : { fontWeight: `300` }}>{p.name}</h2>
 							</div>
 					  ))
 					: ''}

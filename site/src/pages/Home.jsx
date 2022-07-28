@@ -41,7 +41,7 @@ const Home = ({ user }) => {
 			<h2 style={styles.h2}>Welcome {user.username}</h2>
 			<h1 style={styles.h1}>{clock.toLocaleTimeString()}</h1>
 			<h2 style={styles.h2}>{clock.toLocaleDateString()}</h2>
-			<h2>Plan: {user.plan.name}</h2>
+			<h2>Plan: {user.plan? user.plan.name: 'no current plan'}</h2>
 			<h2>{hasWorkout ? <Link to='/workout'>You've got a session scheduled today</Link> : ''}</h2>
 		</div>
 	);

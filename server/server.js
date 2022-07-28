@@ -112,3 +112,5 @@ app.post(
 	},
 	collection.exerciseLogger.createRecord
 );
+
+app.delete('/plan/:id', collection.plan.deletePlanById);

@@ -50,9 +50,18 @@ const updatePlan = async (req, res) => {
 	} catch (error) {}
 };
 
+const deletePlanById = async (req, res) => {
+	let { id } = req.params;
+	try {
+		let resp = await ExercisePlan.findByIdAndDelete(id);
+		res.json(resp);
+	} catch (error) {}
+};
+
 module.exports = {
 	createExercisePlan,
 	getExercisePlanFromUser,
 	getExercisePlanByID,
 	updatePlan,
+	deletePlanById,
 };
