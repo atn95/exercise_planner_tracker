@@ -3,7 +3,6 @@ import ChartPanel from '../components/data/ChartPanel';
 import { useState, useEffect } from 'react';
 import { dataPageStyles as styles } from '../components/styles/dataStyle';
 import axios from 'axios';
-import moment from 'moment';
 import 'chartjs-adapter-date-fns';
 import { Chart } from 'chart.js';
 
@@ -15,7 +14,6 @@ const Data = ({ user }) => {
 	let [workoutRecords, setWorkoutRecords] = useState(null);
 
 	const getExerciseHistory = async () => {
-		console.log(moment(new Date()));
 		let resp = await axios.get('http://127.0.0.1:3001/recordbyexercise', { params: { exerciseId: selected._id, userId: user._id } });
 		let mapped = resp.data.map((rec) => {
 			let heaviest = 0;
@@ -37,7 +35,7 @@ const Data = ({ user }) => {
 			datasets: [
 				{
 					label: `${selected.name} Progess`,
-					data: data.map((d) => {
+					data: mapped.map((d) => {
 						return { x: d.date.toISOString(), y: d.weight };
 					}),
 				},
