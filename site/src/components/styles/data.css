@@ -1,5 +1,6 @@
 .exercise:hover {
 	background-color: rgb(190, 190, 190);
+	z-index: 1;
 }
 
 .selected {

@@ -10,11 +10,13 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule,
 			padding: `0`,
 			paddingLeft: `10px`,
 			background: `white`,
+			zIndex: `0`,
 		},
 		header: {
 			display: `flex`,
 			justifyContent: `space-between`,
 			marginRight: `10px`,
+			zIndex: `0`,
 		},
 		icon: {
 			width: `32px`,

@@ -8,10 +8,10 @@ const Home = ({ user }) => {
 
 	const styles = {
 		h1: {
-			fontSize: '60px',
+			fontSize: window.innerWidth < 600 ? `35px` : '60px',
 		},
 		h2: {
-			fontSize: '50px',
+			fontSize: window.innerWidth < 600 ? `25px` : '50px',
 		},
 	};
 	let [clock, setClock] = useState(new Date());
@@ -32,16 +32,16 @@ const Home = ({ user }) => {
 			if (schedule.data[0].schedule[day].exercise.length > 0) {
 				setHasWorkout(true);
 			}
-			// setPlans(plans.data);
 		};
 		getPlansByUser();
 	}, []);
 
 	return (
 		<div style={{ ...containerStyle.container, border: '2px solid black', minHeight: `500px`, borderRadius: `30px`, flexDirection: `column`, justifyContent: `flex-start` }}>
+			<h2 style={styles.h2}>Welcome {user.username}</h2>
 			<h1 style={styles.h1}>{clock.toLocaleTimeString()}</h1>
 			<h2 style={styles.h2}>{clock.toLocaleDateString()}</h2>
-			<h2>Welcome {user.username}</h2>
+			<h2>Plan: {user.plan.name}</h2>
 			<h2>{hasWorkout ? <Link to='/workout'>You've got a session scheduled today</Link> : ''}</h2>
 		</div>
 	);

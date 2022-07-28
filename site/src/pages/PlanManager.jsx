@@ -21,7 +21,7 @@ const PlanManager = ({ user }) => {
 			padding: `0`,
 			paddingLeft: `10px`,
 		},
-		btnStyle: { margin: `5px auto`, textAlign: `center` },
+		btnStyle: { margin: `5px auto`, textAlign: `center`, zIndex: `1` },
 	};
 
 	let [plans, setPlans] = useState([]);

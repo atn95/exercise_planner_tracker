@@ -7,6 +7,7 @@ import dataImg from '../assets/data.png';
 const Header = ({ setUser, user }) => {
 	const styles = {
 		container: {
+			zIndex: `999`,
 			display: 'flex',
 			justifyContent: `flex-end`,
 			backgroundColor: `black`,
@@ -17,15 +18,15 @@ const Header = ({ setUser, user }) => {
 		},
 		navItem: {
 			padding: `1rem`,
-			fontSize: `25px`,
+			fontSize: window.innerWidth < 600 ? `14px` : `25px`,
 			textDecoration: `none`,
 			color: `white`,
 			marginLeft: `15px`,
 		},
 		img: {
 			objectFit: `cover`,
-			width: `32px`,
-			height: `32px`,
+			width: window.innerWidth < 600 ? `25px` : `32px`,
+			height: window.innerWidth < 600 ? `25px` : `32px`,
 		},
 		headerContainer: {
 			margin: `0 auto`,
@@ -46,15 +47,15 @@ const Header = ({ setUser, user }) => {
 		<div style={styles.headerContainer}>
 			<header style={styles.container}>
 				<Link to='/' style={styles.navItem}>
-					<img style={styles.img} src={homeImg} /> Home
+					<img style={styles.img} src={homeImg} /> {window.innerWidth < 600 ? `` : 'Home'}
 				</Link>
 				<Link to='/workout' style={styles.navItem}>
 					<img style={styles.img} src={workoutImg} />
-					Workout
+					{window.innerWidth < 600 ? `` : 'Workout'}
 				</Link>
 				<Link to='/data' style={styles.navItem}>
 					<img style={styles.img} src={dataImg} />
-					Data
+					{window.innerWidth < 600 ? `` : 'Data'}
 				</Link>
 				{user ? (
 					<div style={styles.navItem} onClick={logout}>

@@ -13,7 +13,7 @@ const Exercise = ({ exercise, user }) => {
 			marginLeft: `10px`,
 		},
 		input: {
-			width: `50px`,
+			width: window.innerWidth < 600 ? `33px` : `50px`,
 		},
 		saveBtn: {
 			margin: `20px auto`,
@@ -47,7 +47,6 @@ const Exercise = ({ exercise, user }) => {
 		const saveToDb = async () => {
 			if (saving) {
 				let resp = await axios.put('http://127.0.0.1:3001/log/save', exerciseRecord);
-				console.log(resp);
 				setSaving(false);
 			}
 		};
