@@ -29,9 +29,10 @@ const Data = ({ user }) => {
 		mapped.sort((a, b) => {
 			return a.date.getTime() - b.date.getTime();
 		});
-		console.log(mapped[0].date);
-		setData(mapped);
 		setWorkoutRecords(resp.data);
+		console.log(mapped);
+		setData(mapped);
+
 		let chartdata = {
 			datasets: [
 				{
