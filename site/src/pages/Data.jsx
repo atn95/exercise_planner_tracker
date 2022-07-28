@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { dataPageStyles as styles } from '../components/styles/dataStyle';
 import axios from 'axios';
 import moment from 'moment';
-import 'chartjs-adapter-moment';
+import 'chartjs-adapter-date-fns';
 import { Chart } from 'chart.js';
 
 const Data = ({ user }) => {
@@ -29,20 +29,15 @@ const Data = ({ user }) => {
 		mapped.sort((a, b) => {
 			return a.date.getTime() - b.date.getTime();
 		});
-		console.log(mapped[0].date.toISOString());
+		console.log(mapped[0].date);
 		setData(mapped);
 		setWorkoutRecords(resp.data);
 		let chartdata = {
-			label: data.map((d) => {
-				console.log(d.date);
-				return d.date;
-			}),
 			datasets: [
 				{
 					label: `${selected.name} Progess`,
 					data: data.map((d) => {
-						console.log(d.weight);
-						return d.weight;
+						return { x: d.date.toISOString(), y: d.weight };
 					}),
 				},
 			],
