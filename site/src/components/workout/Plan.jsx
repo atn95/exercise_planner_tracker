@@ -16,6 +16,10 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule,
 			justifyContent: `space-between`,
 			marginRight: `10px`,
 		},
+		icon: {
+			width: `32px`,
+			height: `32px`,
+		},
 	};
 
 	const chooseDate = (index) => {
@@ -47,7 +51,7 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule,
 						{plan.name}
 					</h5>
 				}
-				{selectedPlan && selectedPlan._id == plan._id ? <input onClick={deletePlan} type='image' src={deleteIcon} alt='delete btn' /> : ''}
+				{selectedPlan && selectedPlan._id == plan._id ? <input style={styles.icon} onClick={deletePlan} type='image' src={deleteIcon} alt='delete btn' /> : ''}
 			</div>
 			{selectedPlan != null && schedule != null && plan._id === schedule._id ? showDates() : ''}
 		</div>

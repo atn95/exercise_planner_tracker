@@ -13,7 +13,6 @@ const Data = ({ user }) => {
 
 	const getExerciseHistory = async () => {
 		let resp = await axios.get('http://127.0.0.1:3001/recordbyexercise', { params: { exerciseId: selected._id, userId: user._id } });
-		console.log(resp.data);
 		let mapped = resp.data.map((rec) => {
 			let heaviest = 0;
 			rec.sets.forEach((set) => {
@@ -59,7 +58,6 @@ const Data = ({ user }) => {
 					},
 				},
 			};
-			console.log(data);
 			setChartOptions(options);
 			setUserRecords(chartdata);
 		}

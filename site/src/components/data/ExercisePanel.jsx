@@ -41,7 +41,6 @@ const ExercisePanel = ({ user, setSelected, selected }) => {
 	const loadUniqueExercise = async () => {
 		let resp = await axios.get('http://127.0.0.1:3001/recordlist', { params: { userId: user._id } });
 		setExerciseRecord(resp.data);
-		console.log(resp.data);
 	};
 
 	//load initial exercise

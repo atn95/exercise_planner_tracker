@@ -68,7 +68,6 @@ const PlanManager = ({ user }) => {
 		const saveSchedule = async () => {
 			if (save) {
 				let response = await axios.post('http://127.0.0.1:3001/updateplan', schedule);
-				console.log(response.data);
 				setSave(false);
 			}
 		};

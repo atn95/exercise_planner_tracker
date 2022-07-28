@@ -2,6 +2,8 @@ import Search from './Search';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddExercise from './AddExercise';
+import deleteIcon from '../../assets/delete.png';
+import addIcon from '../../assets/add.png';
 
 const DaySchedule = ({ day, addExercise, removeExercise }) => {
 	const styles = {
@@ -26,6 +28,10 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 			width: `90%`,
 			margin: `10px auto`,
 		},
+		icon: {
+			width: `32px`,
+			height: `32px`,
+		},
 	};
 
 	let [exerciseList, setExerciseList] = useState([]);
@@ -36,7 +42,6 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 	const pullExercise = async () => {
 		let searchTerm = searchQuery.split(` `).join(`%20`);
 		let exercises = searchQuery.length > 0 ? await axios.get('http://localhost:3001/search/' + searchTerm) : await axios.get('http://localhost:3001/getexercise');
-		console.log(exercises.data);
 		setSearched(false);
 		setExerciseList(exercises.data);
 	};
@@ -47,7 +52,6 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 
 	const searchExercise = (e) => {
 		e.preventDefault();
-		console.log(`searching`);
 		setSearched(true);
 		//search
 	};
@@ -81,7 +85,7 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 						<h5 style={styles.exerciseText}>
 							{ex.name}: {ex.sets} x {ex.reps}
 						</h5>
-						<button onClick={() => removeExercise(ex)}>-</button>
+						<input style={styles.icon} onClick={() => removeExercise(ex)} type='image' src={deleteIcon} alt='Delete Icon' />
 					</div>
 				))}
 			</div>
@@ -94,7 +98,7 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 						<h5 style={styles.exerciseText}>
 							{ex.name}: {ex.sets} x {ex.reps}
 						</h5>
-						<button onClick={() => addExercise(ex)}>+</button>
+						<input style={styles.icon} onClick={() => addExercise(ex)} type='image' src={addIcon} alt='Add icon' />
 					</div>
 				))}
 			</div>
