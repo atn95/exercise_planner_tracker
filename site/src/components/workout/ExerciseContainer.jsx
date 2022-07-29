@@ -15,7 +15,6 @@ const ExerciseContainer = ({ exercises, selectedExercise, setExercise }) => {
 			margin: `5px auto 5px auto`,
 			width: `90%`,
 			border: `2px solid black`,
-			borderRadius: `10px`,
 		},
 		left: {
 			textAlign: `left`,
@@ -23,7 +22,7 @@ const ExerciseContainer = ({ exercises, selectedExercise, setExercise }) => {
 			paddingLeft: `10px`,
 			marginTop: `5px`,
 			marginBottom: `5px`,
-			fontWeight: `300px`,
+			fontWeight: `200px`,
 		},
 	};
 	return (

@@ -9,9 +9,13 @@ export let dataPageStyles = {
 	leftPanel: {
 		width: window.innerWidth < 600 ? '95%' : '35%',
 		border: `2px solid black`,
+		borderRadius: `10px`,
+		backgroundColor: `rgb(240,240,240)`,
 	},
 	rightPanel: {
 		width: window.innerWidth < 600 ? `95%` : `60%`,
 		border: `2px solid black`,
+		borderRadius: `10px`,
+		backgroundColor: `rgb(240,240,240)`,
 	},
 };

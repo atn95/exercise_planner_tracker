@@ -8,6 +8,8 @@ const ExercisePanel = ({ user, setSelected, selected }) => {
 			display: `flex`,
 			flexDirection: `column`,
 			justifyContent: `flex-start`,
+			borderRadius: `10px`,
+			paddingBottom: `15px`,
 		},
 		header: {
 			paddingLeft: `10px`,
@@ -16,8 +18,12 @@ const ExercisePanel = ({ user, setSelected, selected }) => {
 			justifyContent: `space-between`,
 		},
 		h4: {
-			margin: `0`,
-			padding: `.5em`,
+			textAlign: `left`,
+			padding: `0px`,
+			paddingLeft: `10px`,
+			marginTop: `5px`,
+			marginBottom: `5px`,
+			fontWeight: `200px`,
 		},
 		headerBtn: {
 			width: `38px`,
@@ -64,7 +70,7 @@ const ExercisePanel = ({ user, setSelected, selected }) => {
 				{exerciseOpened
 					? exerciseRecord.map((ex) => (
 							<div onClick={() => select(ex)} className={'exercise ' + (selected && selected._id == ex._id ? 'selected' : '')} style={styles.exercise}>
-								{ex.name}
+								<h4 style={styles.h4}>{ex.name}</h4>
 							</div>
 					  ))
 					: ''}{' '}

@@ -14,6 +14,7 @@ const WorkoutPlans = ({ plan, setPlan, plans }) => {
 			display: `flex`,
 			flexDirection: `column`,
 			justifyContent: `space-between`,
+			backgroundColor: `rgb(240,240,240)`,
 		},
 		plansDiv: {
 			display: `block`,

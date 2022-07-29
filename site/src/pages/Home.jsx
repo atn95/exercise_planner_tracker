@@ -8,17 +8,20 @@ const Home = ({ user }) => {
 
 	const styles = {
 		h1: {
-			fontSize: window.innerWidth < 600 ? `35px` : '60px',
+			fontSize: window.innerWidth < 600 ? `40px` : '80px',
+			margin: `10px`,
+			fontWeight: `500`,
 		},
 		h2: {
-			fontSize: window.innerWidth < 600 ? `25px` : '50px',
+			fontSize: window.innerWidth < 600 ? `25px` : '60px',
+			margin: `5px`,
+			fontWeight: '300',
 		},
 	};
 	let [clock, setClock] = useState(new Date());
 
 	useEffect(() => {
 		const interval = setInterval(() => setClock(new Date()), 1000);
-
 		return () => {
 			clearInterval(interval);
 		};
@@ -37,12 +40,20 @@ const Home = ({ user }) => {
 	}, []);
 
 	return (
-		<div style={{ ...containerStyle.container, border: '2px solid black', minHeight: `500px`, borderRadius: `30px`, flexDirection: `column`, justifyContent: `flex-start` }}>
-			<h2 style={styles.h2}>Welcome {user.username}</h2>
-			<h1 style={styles.h1}>{clock.toLocaleTimeString()}</h1>
-			<h2 style={styles.h2}>{clock.toLocaleDateString()}</h2>
-			<h2>Plan: {user.plan? user.plan.name: 'no current plan'}</h2>
-			<h2>{hasWorkout ? <Link to='/workout'>You've got a session scheduled today</Link> : ''}</h2>
+		<div style={{ ...containerStyle.container, border: '2px solid black', minHeight: `500px`, borderRadius: `10px`, flexDirection: `column`, justifyContent: `flex-start`, backgroundColor: `white` }}>
+			<p style={styles.h2}>Welcome {user.username}</p>
+			<p style={styles.h1}>{clock.toLocaleTimeString()}</p>
+			<p style={styles.h2}>{clock.toLocaleDateString()}</p>
+			<p style={styles.h2}>Plan: {user.plan ? user.plan.name : 'no current plan'}</p>
+			<p>
+				{hasWorkout ? (
+					<Link className='workoutplan' to='/workout'>
+						<p style={styles.h2}>You've got a session scheduled today</p>
+					</Link>
+				) : (
+					''
+				)}
+			</p>
 		</div>
 	);
 };
