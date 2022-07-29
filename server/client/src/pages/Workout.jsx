@@ -29,7 +29,7 @@ const Workout = ({ user, updatePlan }) => {
 	useEffect(() => {
 		updatePlan(plan);
 		const saveUserPlan = async () => {
-			const res = await axios.put('/api/user/updateplan', { _id: user._id, plan: plan._id });
+			const res = await axios.put('/api/user/updateplan', { _id: user._id, plan: plan });
 			let schedule = await axios.get(`/api/plan/id`, { params: { planId: plan._id } });
 			let day = new Date().getDay();
 			setExercises(schedule.data[0].schedule[day].exercise);
