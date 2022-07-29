@@ -33,7 +33,13 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule,
 			return (
 				<div>
 					{schedule.schedule.map((day) => (
-						<div onClick={() => chooseDate(schedule.schedule.indexOf(day))} className={'days'}>
+						<div
+							onClick={(e) => {
+								e.preventDefault();
+								chooseDate(schedule.schedule.indexOf(day));
+								e.currentTarget.blur();
+							}}
+							className={'days'}>
 							<div className={schedule.schedule.indexOf(day) == dayIndex ? 'selected' : ''}>{day.day}</div>
 						</div>
 					))}
@@ -45,7 +51,14 @@ const Plan = ({ plan, selectPlan, selectedPlan, dayIndex, setDayIndex, schedule,
 	};
 
 	return (
-		<div onClick={() => selectPlan(plan)} style={styles.plans} className={'plansPageDiv '}>
+		<div
+			onClick={(e) => {
+				e.preventDefault();
+				selectPlan(plan);
+				e.currentTarget.parentNode.blur();
+			}}
+			style={styles.plans}
+			className={'plansPageDiv '}>
 			{' '}
 			<div style={styles.header}>
 				{
