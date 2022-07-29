@@ -12,10 +12,9 @@ app.use(cors({ credentials: true, origin: true }));
 app.options('*', cors());
 app.use(express.json());
 app.use(logger(`dev`));
+app.use(express.static(`${__dirname}/client/build`));
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 //=============get===================
 
@@ -114,3 +113,9 @@ app.post(
 );
 
 app.delete('/plan/:id', collection.plan.deletePlanById);
+
+app.get('/*', (req, res) => {
+	res.sendFile(`${__dirname}/client/build/index.html`);
+});
+
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
