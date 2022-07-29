@@ -41,7 +41,7 @@ const DaySchedule = ({ day, addExercise, removeExercise }) => {
 
 	const pullExercise = async () => {
 		let searchTerm = searchQuery.split(` `).join(`%20`);
-		let exercises = searchQuery.length > 0 ? await axios.get('http://localhost:3001/search/' + searchTerm) : await axios.get('http://localhost:3001/getexercise');
+		let exercises = searchQuery.length > 0 ? await axios.get('/api/search/' + searchTerm) : await axios.get('/api/getexercise');
 		setSearched(false);
 		setExerciseList(exercises.data);
 	};

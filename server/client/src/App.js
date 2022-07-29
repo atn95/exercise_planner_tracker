@@ -54,7 +54,7 @@ function App() {
 			if (loginAtempt) {
 				setLoginAtempt(false);
 				let u = { username: username, password: password };
-				let resp = await axios.post('http://localhost:3001/login', u);
+				let resp = await axios.post('/api/login', u);
 				if (resp.data.message == 'success') {
 					setUser(resp.data);
 					if (persist) {

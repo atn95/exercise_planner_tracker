@@ -55,7 +55,7 @@ const AddPlanPopup = ({ close, addPlan, user }) => {
 	useEffect(() => {
 		const saveToDB = async () => {
 			if (save) {
-				let response = await axios.post('http://localhost:3001/create/plan', { name: planName, userId: user._id });
+				let response = await axios.post('/api/create/plan', { name: planName, userId: user._id });
 				setSave(false);
 				addPlan({ name: response.data.name, _id: response.data._id, userId: response.data.userId });
 				close();

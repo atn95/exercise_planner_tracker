@@ -48,7 +48,7 @@ const Register = () => {
 					canSubmit = false;
 				}
 				if (canSubmit) {
-					let response = await axios.post('http://localhost:3001/register', { username: formValue[0], password: formValue[1], email: formValue[2] });
+					let response = await axios.post('/api/register', { username: formValue[0], password: formValue[1], email: formValue[2] });
 					if (response.data.message != 'success') {
 						setErr(response.data.message);
 					} else {

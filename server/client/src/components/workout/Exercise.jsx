@@ -32,7 +32,7 @@ const Exercise = ({ exercise, user }) => {
 
 	const loadTodayLog = async () => {
 		if (loadlog) {
-			let log = await axios.post('http://localhost:3001/log/gettoday', { userId: user._id, exerciseId: exercise._id });
+			let log = await axios.post('/api/log/gettoday', { userId: user._id, exerciseId: exercise._id });
 			setExerciseRecord(log.data);
 		} else {
 			setLoadLog(true);
@@ -46,7 +46,7 @@ const Exercise = ({ exercise, user }) => {
 	useEffect(() => {
 		const saveToDb = async () => {
 			if (saving) {
-				let resp = await axios.put('http://localhost:3001/log/save', exerciseRecord);
+				let resp = await axios.put('/api/log/save', exerciseRecord);
 				setSaving(false);
 			}
 		};

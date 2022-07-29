@@ -19,7 +19,7 @@ const Workout = ({ user, updatePlan }) => {
 	useEffect(() => {
 		//load plans
 		const getPlansByUser = async () => {
-			let plans = await axios.get(`http://localhost:3001/plan`, { params: { userId: user._id } });
+			let plans = await axios.get(`/api/plan`, { params: { userId: user._id } });
 			setPlans(plans.data);
 		};
 		getPlansByUser();
@@ -29,8 +29,8 @@ const Workout = ({ user, updatePlan }) => {
 	useEffect(() => {
 		updatePlan(plan);
 		const saveUserPlan = async () => {
-			const res = await axios.put('http://localhost:3001/user/updateplan', { _id: user._id, plan: plan._id });
-			let schedule = await axios.get(`http://localhost:3001/plan/id`, { params: { planId: plan._id } });
+			const res = await axios.put('/api/user/updateplan', { _id: user._id, plan: plan._id });
+			let schedule = await axios.get(`/api/plan/id`, { params: { planId: plan._id } });
 			let day = new Date().getDay();
 			setExercises(schedule.data[0].schedule[day].exercise);
 		};

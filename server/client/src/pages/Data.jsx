@@ -12,7 +12,7 @@ const Data = ({ user }) => {
 	let [chartOptions, setChartOptions] = useState(null);
 
 	const getExerciseHistory = async () => {
-		let resp = await axios.get('http://localhost:3001/recordbyexercise', { params: { exerciseId: selected._id, userId: user._id } });
+		let resp = await axios.get('/api/recordbyexercise', { params: { exerciseId: selected._id, userId: user._id } });
 		let mapped = resp.data.map((rec) => {
 			let heaviest = 0;
 			rec.sets.forEach((set) => {

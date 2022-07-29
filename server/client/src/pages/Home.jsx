@@ -30,7 +30,7 @@ const Home = ({ user }) => {
 	useEffect(() => {
 		//load plans
 		const getPlansByUser = async () => {
-			let schedule = await axios.get(`http://localhost:3001/plan/id`, { params: { planId: user.plan._id } });
+			let schedule = await axios.get(`/api/plan/id`, { params: { planId: user.plan._id } });
 			let day = new Date().getDay();
 			if (schedule.data[0].schedule[day].exercise.length > 0) {
 				setHasWorkout(true);
