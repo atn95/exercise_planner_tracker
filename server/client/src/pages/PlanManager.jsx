@@ -29,7 +29,7 @@ const PlanManager = ({ user }) => {
 	useEffect(() => {
 		//load plans
 		const getPlansByUser = async () => {
-			let plans = await axios.get(`http://127.0.0.1:3001/plan`, { params: { userId: user._id } });
+			let plans = await axios.get(`http://localhost:3001/plan`, { params: { userId: user._id } });
 			setPlans(plans.data);
 		};
 		getPlansByUser();
@@ -57,7 +57,7 @@ const PlanManager = ({ user }) => {
 	useEffect(() => {
 		const getSchedule = async () => {
 			if (selectedPlan) {
-				let schedule = await axios.get(`http://127.0.0.1:3001/plan/id`, { params: { planId: selectedPlan._id } });
+				let schedule = await axios.get(`http://localhost:3001/plan/id`, { params: { planId: selectedPlan._id } });
 				setSchedule(schedule.data[0]);
 			}
 		};
@@ -67,7 +67,7 @@ const PlanManager = ({ user }) => {
 	useEffect(() => {
 		const saveSchedule = async () => {
 			if (save) {
-				let response = await axios.post('http://127.0.0.1:3001/updateplan', schedule);
+				let response = await axios.post('http://localhost:3001/updateplan', schedule);
 				setSave(false);
 			}
 		};
@@ -95,9 +95,7 @@ const PlanManager = ({ user }) => {
 	};
 
 	const deletePlan = async () => {
-		console.log(`clicked`);
-		let resp = await axios.delete('http://127.0.0.1:3001/plan/' + selectedPlan._id);
-		console.log(resp.data);
+		let resp = await axios.delete('http://localhost:3001/plan/' + selectedPlan._id);
 		let tempPlans = [...plans];
 		tempPlans.splice(plans.indexOf(selectedPlan), 1);
 		setPlans(tempPlans);

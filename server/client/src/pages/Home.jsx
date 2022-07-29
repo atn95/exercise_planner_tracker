@@ -13,7 +13,7 @@ const Home = ({ user }) => {
 			fontWeight: `500`,
 		},
 		h2: {
-			fontSize: window.innerWidth < 600 ? `25px` : '60px',
+			fontSize: window.innerWidth < 600 ? `25px` : '50px',
 			margin: `5px`,
 			fontWeight: '300',
 		},
@@ -30,7 +30,7 @@ const Home = ({ user }) => {
 	useEffect(() => {
 		//load plans
 		const getPlansByUser = async () => {
-			let schedule = await axios.get(`http://127.0.0.1:3001/plan/id`, { params: { planId: user.plan._id } });
+			let schedule = await axios.get(`http://localhost:3001/plan/id`, { params: { planId: user.plan._id } });
 			let day = new Date().getDay();
 			if (schedule.data[0].schedule[day].exercise.length > 0) {
 				setHasWorkout(true);

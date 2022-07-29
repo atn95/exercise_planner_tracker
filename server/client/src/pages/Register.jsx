@@ -9,6 +9,8 @@ const Register = () => {
 			border: `2px solid black`,
 			paddingTop: `20px`,
 			paddingBottom: `20px`,
+			borderRadius: `10px`,
+			backgroundColor: `rgb(240,240,240)`,
 		},
 		form: {
 			width: `min(600px, 85%)`,
@@ -46,7 +48,7 @@ const Register = () => {
 					canSubmit = false;
 				}
 				if (canSubmit) {
-					let response = await axios.post('http://127.0.0.1:3001/register', { username: formValue[0], password: formValue[1], email: formValue[2] });
+					let response = await axios.post('http://localhost:3001/register', { username: formValue[0], password: formValue[1], email: formValue[2] });
 					if (response.data.message != 'success') {
 						setErr(response.data.message);
 					} else {
@@ -63,7 +65,6 @@ const Register = () => {
 		e.preventDefault();
 		let tempInput = [...formValue];
 		tempInput[index] = e.target.value;
-		console.log(tempInput);
 		setFormValue(tempInput);
 	};
 

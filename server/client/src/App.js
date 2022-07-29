@@ -52,10 +52,9 @@ function App() {
 	useEffect(() => {
 		const userLogin = async () => {
 			if (loginAtempt) {
-				console.log(`in Use effect`);
 				setLoginAtempt(false);
 				let u = { username: username, password: password };
-				let resp = await axios.post('http://127.0.0.1:3001/login', u);
+				let resp = await axios.post('http://localhost:3001/login', u);
 				if (resp.data.message == 'success') {
 					setUser(resp.data);
 					if (persist) {

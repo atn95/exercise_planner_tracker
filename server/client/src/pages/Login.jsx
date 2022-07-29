@@ -7,6 +7,8 @@ const Login = ({ submit, userChange, passChange, userValue, passValue, keepLogin
 			border: `2px solid black`,
 			paddingTop: `20px`,
 			paddingBottom: `20px`,
+			backgroundColor: `rgb(240,240,240)`,
+			borderRadius: `10px`,
 		},
 	};
 	return (

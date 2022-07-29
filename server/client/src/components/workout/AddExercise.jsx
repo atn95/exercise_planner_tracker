@@ -46,9 +46,8 @@ const AddExercise = ({ close, addExercise }) => {
 	const saveExercise = async (e) => {
 		e.preventDefault();
 		let exercise = { name: exerciseName, sets: parseInt(exerciseSets), reps: parseInt(exerciseReps), units: units };
-		let res = await axios.post(`http://127.0.0.1:3001/addexercise`, exercise);
+		let res = await axios.post(`http://localhost:3001/addexercise`, exercise);
 		addExercise(res.data._doc);
-		console.log(res);
 		if (res.data.message == 'saved') {
 			close();
 		} else {
