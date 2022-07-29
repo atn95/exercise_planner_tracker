@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
 	const styles = {
@@ -28,6 +29,7 @@ const Register = () => {
 			color: `red`,
 		},
 	};
+	let navigate = useNavigate();
 
 	let [message, setMessage] = useState('');
 	let [submited, setSubmited] = useState(false);
@@ -53,6 +55,7 @@ const Register = () => {
 						setErr(response.data.message);
 					} else {
 						setMessage(response.data.message);
+						navigate('../', { replace: true });
 					}
 				}
 				setSubmited(false);
