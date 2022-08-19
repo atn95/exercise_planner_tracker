@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Exercise = ({ exercise, user }) => {
 	const styles = {
@@ -20,57 +20,69 @@ const Exercise = ({ exercise, user }) => {
 			width: `90px`,
 			height: `40px`,
 		},
-	};
+	}
 
-	let [exerciseRecord, setExerciseRecord] = useState(null);
-	let [loadlog, setLoadLog] = useState(false);
-	let [saving, setSaving] = useState(false);
+	let [exerciseRecord, setExerciseRecord] = useState(null)
+	let [loadlog, setLoadLog] = useState(false)
+	let [saving, setSaving] = useState(false)
 
 	useEffect(() => {
-		loadTodayLog();
-	}, []);
+		loadTodayLog()
+	}, [])
 
 	const loadTodayLog = async () => {
 		if (loadlog) {
-			let log = await axios.post('/api/log/gettoday', { userId: user._id, exerciseId: exercise._id });
-			setExerciseRecord(log.data);
+			let log = await axios.post('/api/log/gettoday', {
+				userId: user._id,
+				exerciseId: exercise._id,
+			})
+			console.log(log.data)
+			log.data.sets.forEach((set) => {
+				if (!set?.weight) {
+					set.weight = ''
+				}
+				if (!set?.reps) {
+					set.reps = ''
+				}
+			})
+			setExerciseRecord(log.data)
 		} else {
-			setLoadLog(true);
+			setLoadLog(true)
 		}
-	};
+	}
 
 	useEffect(() => {
-		loadTodayLog();
-	}, [exercise, loadlog]);
+		loadTodayLog()
+	}, [exercise, loadlog])
 
 	useEffect(() => {
 		const saveToDb = async () => {
 			if (saving) {
-				let resp = await axios.put('/api/log/save', exerciseRecord);
-				setSaving(false);
+				let resp = await axios.put('/api/log/save', exerciseRecord)
+				setSaving(false)
 			}
-		};
-		saveToDb();
-	}, [saving]);
+		}
+		saveToDb()
+	}, [saving])
 
 	const saveData = (e) => {
-		e.preventDefault();
-		setSaving(true);
-	};
+		e.preventDefault()
+		setSaving(true)
+	}
 
 	const setWeight = (e, index) => {
-		e.preventDefault();
-		let temprecord = { ...exerciseRecord };
-		temprecord.sets[index].weight = e.target.value;
-		setExerciseRecord(temprecord);
-	};
+		e.preventDefault()
+		let temprecord = { ...exerciseRecord }
+		temprecord.sets[index].weight = e.target.value
+		setExerciseRecord(temprecord)
+	}
 
 	const setReps = (e, index) => {
-		e.preventDefault();
-		let temprecord = { ...exerciseRecord };
-		temprecord.sets[index].reps = e.target.value;
-		setExerciseRecord(temprecord);
-	};
+		e.preventDefault()
+		let temprecord = { ...exerciseRecord }
+		temprecord.sets[index].reps = e.target.value
+		setExerciseRecord(temprecord)
+	}
 
 	return (
 		<div style={styles.container}>
@@ -83,12 +95,24 @@ const Exercise = ({ exercise, user }) => {
 								</div>
 								<div>
 									<label>Weight: </label>
-									<input onChange={(e) => setWeight(e, set.set)} value={set.weight} style={styles.input} type='text' name='weight' />
+									<input
+										onChange={(e) => setWeight(e, set.set)}
+										value={set.weight}
+										style={styles.input}
+										type='text'
+										name='weight'
+									/>
 									<label htmlFor='units'> {set.units}</label>
 								</div>
 								<div>
 									<label>reps: </label>
-									<input onChange={(e) => setReps(e, set.set)} value={set.reps} style={styles.input} type='text' name='reps' />
+									<input
+										onChange={(e) => setReps(e, set.set)}
+										value={set.reps}
+										style={styles.input}
+										type='text'
+										name='reps'
+									/>
 								</div>
 							</div>
 					  ))
@@ -102,7 +126,7 @@ const Exercise = ({ exercise, user }) => {
 				)}
 			</form>
 		</div>
-	);
-};
+	)
+}
 
-export default Exercise;
+export default Exercise

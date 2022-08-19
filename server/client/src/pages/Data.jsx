@@ -1,32 +1,43 @@
-import ExercisePanel from '../components/data/ExercisePanel';
-import ChartPanel from '../components/data/ChartPanel';
-import { useState, useEffect } from 'react';
-import { dataPageStyles as styles } from '../components/styles/dataStyle';
-import axios from 'axios';
+import ExercisePanel from '../components/data/ExercisePanel'
+import ChartPanel from '../components/data/ChartPanel'
+import { useState, useEffect } from 'react'
+import { dataPageStyles as styles } from '../components/styles/dataStyle'
+import axios from 'axios'
 
 const Data = ({ user }) => {
-	let [selected, setSelected] = useState(null);
-	let [loaded, setLoaded] = useState(false);
-	let [data, setData] = useState([]);
-	let [userRecords, setUserRecords] = useState(null); //data for chart
-	let [chartOptions, setChartOptions] = useState(null);
+	let [selected, setSelected] = useState(null)
+	let [loaded, setLoaded] = useState(false)
+	let [data, setData] = useState([])
+	let [userRecords, setUserRecords] = useState(null) //data for chart
+	let [chartOptions, setChartOptions] = useState(null)
 
 	const getExerciseHistory = async () => {
-		let resp = await axios.get('/api/recordbyexercise', { params: { exerciseId: selected._id, userId: user._id } });
+		let resp = await axios.get('/api/recordbyexercise', {
+			params: { exerciseId: selected._id, userId: user._id },
+		})
 		let mapped = resp.data.map((rec) => {
-			let heaviest = 0;
+			let heaviest = 0
+			let mostreps = 0
 			rec.sets.forEach((set) => {
 				if (set.weight > heaviest) {
-					heaviest = set.weight;
+					heaviest = set.weight
 				}
-			});
-			return { weight: heaviest, date: new Date(rec.createdAt), units: rec.sets[0].units };
-		});
+				if (set.reps > mostreps) {
+					mostreps = set.reps
+				}
+			})
+			return {
+				weight: heaviest,
+				date: new Date(rec.createdAt),
+				units: rec.sets[0].units,
+				reps: mostreps,
+			}
+		})
 		mapped.sort((a, b) => {
-			return a.date.getTime() - b.date.getTime();
-		});
-		setData(mapped);
-	};
+			return a.date.getTime() - b.date.getTime()
+		})
+		setData(mapped)
+	}
 
 	useEffect(() => {
 		if (data.length > 0 && loaded) {
@@ -36,13 +47,22 @@ const Data = ({ user }) => {
 						borderColor: '#e95151',
 						pointRadius: 5,
 						pointHoverRadius: 10,
-						label: `${selected.name} Progess`,
+						label: `${selected.name} weight Progess`,
 						data: data.map((d) => {
-							return { x: d.date.toISOString(), y: d.weight };
+							return { x: d.date.toISOString(), y: d.weight }
+						}),
+					},
+					{
+						borderColor: '#e95151',
+						pointRadius: 5,
+						pointHoverRadius: 10,
+						label: `${selected.name} reps Progess`,
+						data: data.map((d) => {
+							return { x: d.date.toISOString(), y: d.reps }
 						}),
 					},
 				],
-			};
+			}
 
 			let options = {
 				scales: {
@@ -57,28 +77,34 @@ const Data = ({ user }) => {
 						},
 					},
 				},
-			};
-			setChartOptions(options);
-			setUserRecords(chartdata);
+			}
+			setChartOptions(options)
+			setUserRecords(chartdata)
 		}
-	}, [loaded, data]);
+	}, [loaded, data])
 
 	useEffect(() => {
 		if (loaded) {
-			getExerciseHistory();
+			getExerciseHistory()
 		} else {
-			setLoaded(true);
+			setLoaded(true)
 		}
-	}, [selected, loaded]);
+	}, [selected, loaded])
 
 	return (
 		<div style={styles.container}>
 			<div style={styles.leftPanel}>
 				<ExercisePanel user={user} selected={selected} setSelected={setSelected} />
 			</div>
-			<div style={styles.rightPanel}>{userRecords && chartOptions ? <ChartPanel chartData={userRecords} chartOptions={chartOptions} /> : ``}</div>
+			<div style={styles.rightPanel}>
+				{userRecords && chartOptions ? (
+					<ChartPanel chartData={userRecords} chartOptions={chartOptions} />
+				) : (
+					``
+				)}
+			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default Data;
+export default Data
